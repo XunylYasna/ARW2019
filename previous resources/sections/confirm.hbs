@@ -1,0 +1,40 @@
+<style>
+    #confirmation .brand.label.center {
+        white-space: pre-line;
+    }
+</style>
+<div id = "confirmation" class = "brand modal"> 
+    <div class = "background"> </div>
+    <div class = "main"> 
+        <h4 class = "brand title"> \{{ title }} </h4>
+
+        <label class = "brand label center">\{{ message }}</label>
+        
+        <div class = "brand container horizontal"> 
+            <button @click = "callback_yes" class = "button brand"> \{{yes}} </button>
+            <button @click = "callback_no" class = "button brand close"> \{{no}} </button>
+        </div>
+
+        <button @click= "close" class = "button brand close-modal">
+            <img src="./resources/cancel.svg" width="20px" height="20px">
+        </button>
+    </div>
+</div>
+<script>
+    let confirmation = new Vue ({
+        el: "#confirmation",
+        data: {
+            title: "Yes",
+            message: "Yes",
+            yes: "Yes",
+            no: "No"
+        },
+        methods: {
+            close: function () {
+                closeCurrentModal()
+            }, 
+            callback_yes: function () { },
+            callback_no: function () { }
+        }
+    })
+</script>

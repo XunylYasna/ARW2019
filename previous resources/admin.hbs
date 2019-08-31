@@ -1,0 +1,156 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <!-- CSS FILES -->
+        <link href="./styles/fonts.css" rel="stylesheet"/>
+        <link rel = "stylesheet" type="text/css" href="./styles/main.css"/>
+        <link rel = "stylesheet" type="text/css" href="./styles/logo.css"/>
+        
+        <script src="./libraries/vue/vue.js"> </script>
+        <script src="./libraries/jquery.min.js"> </script>
+    </head>
+    <style> 
+        div#main { 
+            margin: 20px 0px;
+            padding: 20px;
+        }
+
+        #title_admin {
+            text-align: left;
+        }
+
+        button.sort {
+            border: none;
+            background: none;
+            outline: none;
+        }
+
+        button.sort img {
+            width: 12px;
+            flex-grow: 1;
+        }
+
+        #member_data_table .header {
+            width: 100%;
+            padding: 0;
+            margin: 0;
+            height: 100%;
+            display: flex;
+        }
+
+        #member_data_table .header > span {
+            flex-grow: 15;
+            text-align: left;
+        }
+
+        .synced {
+            background: green;
+        }
+
+        #actions_and_filter {
+            margin-bottom: 20px;
+        }
+
+        .brand.container {
+            margin-bottom: 10px;
+        }
+
+        .brand.button {
+            font-size: 16px;
+        }
+
+        .brand.checkbox_input {
+            width: 25%;
+        }
+
+        #members_jo {
+            width: 100%;
+        }
+    </style>
+    <body>
+        <div id = "background"> </div>
+        <div id = "toast_container">
+            <div v-for = "message in messages" class = "toast">
+                \{{message.message}}
+                <div class = "timestamp"> \{{message.timestamp}} </div>
+            </div>
+        </div>
+        <div id = "main">
+            <div id = "member_data" class = "brand dashboard">
+                <h6 id = "title_admin" class = "brand title"> Member Data from \{{pc_name}}</h6>
+                <div id = "actions_and_filter">
+                    <div class = "brand button-container">
+                        <button v-on:click = "sync" class = "brand button"> Sync Members to DB </button>
+                        <button v-on:click = "save" class = "brand button"> Save as XLSX </button>
+                    </div>
+                    
+                    <div class = "brand checkbox_input">
+                        <div class="brand checkbox">
+                            <input v-model = "filter_jo" value = "true" type="checkbox" class = "input">
+                            <img class="icon"src="./resources/checked.svg"> </span>
+                        </div>
+                        <label class = "label"> Filter Junior Officers </label>
+                    </div>
+                </div>
+                <div id = "prices" class = "brand container">
+                    <div v-for = "(fee, id) in fees" class = "brand title"> 
+                        <p> 
+                            <span v-if = "id === 'honorary'">Honorary </span>
+                            <span v-else-if = "id === 'groups_of_5_new'">Group of 5 New Members</span> 
+                            <span v-else-if = "id === 'groups_of_5_old'">Group of 5 Old Members</span> 
+                            <span v-else-if = "id === '_new'">New Member</span>
+                            <span v-else-if = "id === '_old'">Old Member</span> 
+                        </p>
+                        \{{members.reduce((total, value) => total + (value.membership_type == id ? 1: 0), 0)}} x
+                        \{{fee}} = 
+                        \{{members.reduce((total, value) => total + (value.membership_type == id ? parseInt(fee): 0), 0)}}
+                    </div> 
+                    <div class = "brand title"> 
+                        <p> Total </p>
+                        \{{members.reduce((total, value) => total + parseInt(fees[value.membership_type]), 0)}}
+                    </div>
+                </div>
+                <div class = "brand table-container">
+                    <table v-if = "count_jo() > 0" id = "member_data_table" class = "brand table">
+                        <thead> 
+                            <tr>
+                                <th nowrap v-for = "(field, id) in fields"> 
+                                    <div class = "header">
+                                        <span> \{{field.name?field.name.toUpperCase():''}}  </span>
+                                        <button class = "sort" v-on:click = "sort(id)"> 
+                                            <img src="./resources/sort-asc.png" v-if = "sorted.column == id && sorted.asc">
+                                            <img src="./resources/sort-desc.png" v-else-if = "sorted.column == id && !sorted.asc">
+                                            <img src="./resources/no-sort.png" v-else>
+                                        </button>
+                                    </div>
+                                </th>
+                                <th nowrap> ACTIONS </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for = "(member, id) in members" v-if  = "!(filter_jo && !(member ? member.applied_for_jo : false))" :class = "member.synced ? 'synced' : ''">
+                                <td nowrap v-for = "(field, id) in fields" > 
+                                    \{{field.calculate?field.calculate(member):member[id]}}
+                                </td>
+                                <td nowrap> 
+                                    <input type="button" class = "brand button close" v-on:click="delete_member(member)" value="DELETE">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h5 v-else class = "brand title">
+                        NO MEMBERS    
+                    </h5>
+                </div>
+            </div>
+        </div>
+        
+        {{#>confirm}} Confirm Modal {{/confirm}}
+        {{#>error}} Error Modal {{/error}}
+    </body>
+    <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase.js"></script>
+    <script src="./scripts/navigation.js"></script>
+    <script src="./scripts/admin.js"> </script>
+    <script src="./scripts/toast.js"> </script>
+    <link href="./styles/toast.css" rel="stylesheet">
+</html>

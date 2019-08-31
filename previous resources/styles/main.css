@@ -1,0 +1,463 @@
+:root {
+    --black-gray: #535353;
+    --light-gray: #A2A2A2;
+
+    --blue: #025187;
+    --light-blue: #2c8dce;
+
+    --yellow: #FCDB51;
+    --light-yellow: #fdea9b;
+
+    --red: #b22222;
+    --light-red: #cc4848;
+}
+
+* {
+    font-family: "Lato"
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    background: white;
+    justify-content: center;
+}
+
+div#main {
+    position: absolute;
+    padding: 30px 40px;
+    width: calc(100% - 80px);
+    z-index: 2;
+    top: 0;
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+div#background {
+    background: #025187;
+    position: fixed;
+    width: 100%;
+    z-index: 0;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+div#overlay {
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+    opacity: 0.5;
+    height: 100%;
+    background: black;
+    top: 0;
+    left: 0;
+}
+
+.brand.dashboard {
+    width: 100%;
+    height: 100%;
+}
+
+.brand.vertical.container.section {
+    display: none;
+}
+
+.brand.vertical.container.section#home {
+    display: flex;
+}
+
+.brand.button.close {
+    color: var(--yellow);
+    background-color: var(--red);
+}
+
+.brand.vertical.container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.brand.vertical.container > .brand.button {
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.brand.vertical.container > .brand.button:first-child {
+    margin-top: 10px;
+}
+
+.brand.button.big {
+    font-size: 30px;
+}
+
+.brand.field .input.error {
+    border: 1px solid var(--red);
+}
+
+.message {
+    color: var(--red);
+    margin: 0;
+    padding: 0;
+    font-weight: bolder;
+    width: 100%;
+    font-size: 20px;
+    font-family: "Lato";
+    text-align: right;
+}
+
+.message:before {
+    content: "*";
+}
+
+.brand.container.horizontal {
+    display: block;
+}
+
+.brand.button.invert {
+    color: var(--yellow);
+    background-color: var(--blue);
+}
+
+.brand.button.invert:hover {
+    color: var(--yellow);
+    background-color: var(--light-blue);
+}
+
+
+.brand.button.close:hover {
+    color: var(--light-yellow);
+    background-color: var(--light-red);
+}
+
+.brand.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--blue);
+    background-color: var(--yellow);
+    font-size: 20px;
+    font-family: "Raleway";
+    margin: 0px;
+    padding: 10px 30px;
+    border: none;
+    float: right;
+    cursor: pointer;
+    transition: 0.25s;
+    font-weight: bolder;
+    border-radius: 2.5px;
+}
+
+.brand.button:hover {
+    color: var(--light-blue);
+    background-color: var(--light-yellow);
+}
+
+h1 { font-size: 76px; }
+h2 { font-size: 64px; }
+h3 { font-size: 52px; }
+h4 { font-size: 40px; }
+h5 { font-size: 28px; }
+h6 { font-size: 20px; }
+
+.brand.header {
+    width: 100%;
+    text-transform: capitalize;
+    text-align: center;
+    margin: 0px 0px 10px 0px;
+    padding: 10px 0px;
+    color: var(--blue);
+    border-bottom: 5px solid var(--blue);
+    font-family: "Raleway";
+    font-weight: bolder;
+}
+
+.brand.title {
+    width: 100%;
+    text-align: center;
+    margin: 0px 0px 10px 0px;
+    padding: 10px 0px;
+    color: black;
+    font-family: "Raleway";
+    font-weight: bolder;
+}
+
+.brand.image {
+    width: 100%;
+    height: 100%;
+}
+
+.brand.image.spread {
+    object-fit: contain;
+    margin: 0;
+    padding: 0;
+}
+
+.brand.container {
+    display: flex;
+    position: relative;
+}
+
+.brand.container.center {
+    align-items: center;
+    justify-content: center;
+}
+
+.brand.container.vertical {
+    flex-direction: column;
+}
+
+.brand.container > .brand.button:not(:last-child) {
+    margin-right: 10px;
+}
+
+.brand.center {
+    text-align: center;
+}
+
+.brand.field {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0px;
+}
+
+.brand.form {
+    position: relative;
+    padding: 0px 0px;
+}
+
+::-webkit-scrollbar {
+    width: 15px;
+    background: transparent; 
+}
+
+::-webkit-scrollbar-track {
+    background: transparent; 
+}
+ 
+::-webkit-scrollbar-thumb {
+    background: var(--black-gray); 
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--black-gray); 
+}
+
+.brand.field .label {
+    font-family: "Raleway";
+    border-radius: 5px;
+    font-size: 20px;
+    outline: none;
+    font-weight: bolder;
+}
+
+.brand.field .input {
+    padding: 5px 20px;
+    font-family: "Lato";
+    border-radius: 3px;
+    margin: 5px 0px;
+    font-size: 18px;
+    border: 1px solid var(--light-gray);
+}
+
+
+
+.brand.loading .label {
+    display: flex;
+    font-family: "Lato";
+}
+
+.brand.checkbox_input {
+    width: 100%;
+    height: 20px;
+    padding: 10px 0px;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.brand.emphasis {
+    font-family: "Raleway";
+    font-weight: bolder;
+    color: var(--blue);
+}
+
+.brand.checkbox_input .label {
+    font-family: "Lato";
+    padding: 0px 20px;
+}
+
+.brand.checkbox {
+    width: 30px;
+    height: 30px;
+    position: relative;
+    border-radius: 3px;
+    border: 3px solid var(--blue);
+}
+
+.brand.checkbox  input.input {
+    width: 32px;
+    height: 32px;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    z-index: 1;
+    opacity: 0;
+}
+
+.brand.checkbox .icon {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    z-index: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.brand.checkbox .label {
+    color: black;
+    font-size: 18px;
+    width: calc(100% - 40px);
+    font-family: "Lato";
+    padding-left: 40px;
+}
+
+.brand.checkbox  input.input:not(:checked) ~ .icon {
+    display: none;
+}
+
+.brand.checkbox  input.input:checked ~ .icon {
+    display: block;
+}
+
+.brand.modal {
+    z-index: 5;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    display: none;
+    top: 0;
+    left: 0;
+    align-items: center;
+    justify-content: center;
+    font-family: "Lato";
+}
+
+.brand.modal .background {
+    background-color: #000000;
+    opacity: 0.8;
+    width: 100%;
+    z-index: 0;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+}
+
+.brand.modal .main {
+    font-family: "Lato";
+    background-color: white;
+    max-width: 60%;
+    padding: 20px;
+    border-radius: 3px;
+    min-width: 300px;
+    z-index: 1;
+}
+
+.brand.label {
+    font-family: "Lato";
+    color: var(--blue);
+    font-size: 28px;
+}
+
+p.brand.text {
+    font-family: "Lato";
+    color: var(--blue);
+    font-size: 20px;
+}
+
+.brand.form {
+    margin: 25px 40px;
+}
+.brand.button {
+    margin: 0px 5px;
+}
+
+.brand.button:only-child {
+    margin: 0px;
+}
+
+.brand.button:first-child {
+    margin-right: 0px;
+}
+
+.brand.button:last-child {
+    margin-left: 0px;
+}
+
+
+.brand.modal .brand.button.close-modal {
+    position: absolute;
+    background: none;
+    border-radius: 3em;
+    min-width: 15px !important;
+    min-height: 15px !important;
+    padding: 20px;
+    top: 10px;
+    right: 10px;
+    background: none;
+    opacity: .8;
+}
+
+.brand.button:disabled  {
+    opacity: .5;
+    color: var(--blue);
+    background-color: var(--yellow);
+}
+
+.brand.button:disabled:hover {
+    opacity: .5;
+    color: var(--blue);
+    background-color: var(--yellow);
+}
+
+.brand.modal .brand.button.close-modal:hover {
+    position: absolute;
+    background: none;
+    border-radius: 3em;
+    opacity: 1;
+}
+
+.brand.table-container {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    border: 5px solid var(--blue);
+}
+
+.brand.table {
+    color: black;
+    border: 0px solid var(--blue);
+    border-spacing: initial;
+}
+
+.brand.table .brand.button {
+    font-size: 12px;
+}
+
+.brand.table tr, .brand.table td, .brand.table th {
+    border: 1px solid var(--blue);
+    padding: 3px 20px;
+    font-size: 16px;
+}
+
+.brand.table th {
+    font-family: "Raleway";
+    font-size: 20px;
+}

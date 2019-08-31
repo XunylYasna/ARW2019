@@ -1,0 +1,52 @@
+<style>
+    #home h5 {
+        margin: 0;
+        padding: 0;
+        color: var(--blue);
+    }
+
+    #home h4 {
+        margin: 0;
+        color: var(--blue);
+        padding: 0;
+    }
+
+    #home #member-registration.brand.button {
+        font-size: 24px;
+        max-width: 60%;
+    }
+</style>
+
+<div id = "home">
+    <div id = "logo_container" class = "brand center container"> </div>
+
+    <div class = "brand hr yellow"> </div>
+    <div class = "brand hr blue"> </div>
+
+    <div class = "brand vertical center container">
+        <h4 class = "brand title"> 
+            LA SALLE COMPUTER SOCIETY <br>
+            ANNUAL RECRUITMENT WEEK
+        </h4>
+        <h5> OCTOBER 2, 2018 - OCTOBER 5, 2018 </h5> 
+        <img src="./resources/macky.png" width="400px"> 
+        <p class = "brand label"> 
+            Are you interested in enhancing your technological skills? <br>
+            Do you want to destress from acads and engage in fun events? <br>
+            Well, La Salle Computer Society is the organization for you. <br>
+            Join now and be a part of the LSCS family!     
+        </p>
+        
+        <button id = "member-registration" class = "brand button">
+            REGISTER HERE!
+        </button>
+    </div>
+        
+    <div class = "brand hr blue"> </div>
+    <div class = "brand hr yellow"> </div>
+</div>
+<script>
+    document.getElementById("member-registration").onclick = function () { 
+        showModal("register")
+    }
+</script>

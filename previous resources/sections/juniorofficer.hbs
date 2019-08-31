@@ -1,0 +1,61 @@
+<style>
+    #junior-officer-buttons.brand.vertical.container {
+        width: 400px;
+        margin: 0 auto;
+    }
+
+    #juniorofficer.brand.modal .main {
+        text-align: center;
+    }
+</style>
+<div id = "juniorofficer" class = "brand modal"> 
+    <div class = "background"> </div>
+    <div class = "main"> 
+        <div class = "brand hr blue"> </div>
+        <div class = "brand hr yellow"> </div>
+        <img src="./resources/macky.png" width="400px" > 
+        <h4 class = "brand title">  Hiya new member of LSCS! </h4>
+        <label class = "brand label center">
+                <strong> Do you have what it takes to be a Junior Officer of LSCS? </strong> <br>
+                Partake in the wondrous adventure of learning the processes of the organization 
+                by joining as a Junior Officer!<br>
+                We look forward to seeing you as a part of our crew!
+        </label>
+
+        <div id = "junior-officer-buttons" class = "brand center vertical container">   
+            <button v-on:click="applied" class = "big brand button"> YES! </button>
+            <button v-on:click="did_not_apply" class = "big brand button invert"> Maybe Next Time... </button>
+        </div>
+
+        <div class = "brand hr yellow"> </div>
+        <div class = "brand hr blue"> </div>
+
+        <button v-on:click = "exit" class = "brand button close-modal">
+            <img src="./resources/cancel.svg" width="20px" height="20px">
+        </button>
+
+    </div>
+</div>
+
+
+<script>
+    var juniorofficer = new Vue ({
+        el: "#juniorofficer",
+        methods: {
+            exit: function (event) {
+                closeCurrentModal()
+            },
+            applied: function(event) {
+                form_register.saveData(true)
+                closeCurrentModal()
+            },
+            did_not_apply: function(event) {
+                form_register.saveData(false)
+                closeCurrentModal()
+            }
+        }
+    })
+
+    
+    $(forms[questions.current]).show()
+</script>

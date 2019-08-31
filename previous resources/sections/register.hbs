@@ -1,0 +1,130 @@
+<style>
+    .brand.form {
+        display: none;
+    }
+</style>
+<div id = "register" class = "brand modal"> 
+    <div class = "background"> </div>
+    <div class = "main"> 
+        <div class = "brand hr blue"> </div>
+        <div class = "brand hr yellow"> </div>
+        <form id = "terms_left" class = "brand form"> 
+            <label  class = "brand label"> How many terms do you have left (including this term)? </label>
+            <div class = "brand field">
+                <input v-model = "answers.terms_left" class = "input" type="number">
+            </div>
+        </form> 
+
+        <form id = "groups_of_5" class = "brand form"> 
+            <label class = "brand label"> Are you applying as a group of 5 members? </label>
+            <p class = "brand text"> If you will apply as a group of 5 members, all of you should be new members OR all of you should be old members of LSCS.  </p>
+            <div class = "brand checkbox_input">
+                <div class="brand checkbox">
+                    <input v-model = "answers.groups_of_5" type="radio" class = "input" value="true">
+                    <img class="icon"src="./resources/checked.svg">
+                </div>
+                <label class = "label"> Yes </label>
+            </div>
+            <div class = "brand checkbox_input">
+                <div class="brand checkbox">
+                    <input v-model = "answers.groups_of_5" type="radio" class = "input" value="false">
+                    <img class="icon"src="./resources/checked.svg">
+                </div>
+                <label class = "label"> No </label>
+            </div>
+        </form> 
+
+        <form id = "old_member" class = "brand form"> 
+            <label class = "brand label"> 
+                Were you 
+                <span v-if = "answers.groups_of_5 === 'true'"> all members </span> 
+                <span v-else> a member </span> 
+                of LSCS last year? 
+            </label>
+            <div class = "brand checkbox_input">
+                <div class="brand checkbox">
+                    <input v-model = "answers.old_member" type="radio" class = "input" value="true">
+                    <img  class="icon"src="./resources/checked.svg"> 
+                </div>
+                <label class = "label"> Yes </label>
+            </div>
+            <div class = "brand checkbox_input">
+                <div class="brand checkbox">
+                    <input v-model = "answers.old_member" type="radio" class = "input" value="false">
+                    <img class="icon"src="./resources/checked.svg">
+                </div>
+                <label class = "label"> No </label>
+            </div>
+        </form> 
+
+        <div class = "brand hr yellow"> </div>
+        <div class = "brand hr blue"> </div>
+
+        <div class = "brand button-container">   
+            <button :disabled = "(current == 2 && !answers.old_member)" v-on:click = "submit"   v-if = "(answers.terms_left !== '' && (current === 0 && answers.terms_left > 0 && answers.terms_left <= 3)) || (current == 2)" class = "brand button submit"> Enter Information </button>
+            <button :disabled = "((answers.terms_left <= 0 || !answers.terms_left) && current == 0) || (!answers.groups_of_5 && current == 1)" v-on:click = "next" v-if = "(current == 1) || (current === 0 && (!answers.terms_left || answers.terms_left <= 0 || answers.terms_left > 3))" class = "brand button positive"> Next >> </button>
+            <button v-on:click = "previous" v-if = "(current > 0 && current < 3)" class = "button brand negative"> << Back </button>
+        </div>
+
+        <button v-on:click = "exit" class = "brand button close-modal">
+            <img src="./resources/cancel.svg" width="20px" height="20px">
+        </button>
+    </div>
+</div>
+<script>
+    
+    var forms = document.getElementsByClassName("form")
+
+    var questions = new Vue ({
+        el: "#register",
+        data: {
+            current: 0,
+            answers: { 
+                terms_left: null,
+                groups_of_5: null,
+                old_member: null
+            }
+        },
+        methods: {
+            previous: function () {
+                $(forms[questions.current]).fadeOut(300, () => {
+                    questions.current--
+                    $(forms[questions.current]).fadeIn(200)
+                })
+            },
+            next: function () {
+                $(forms[questions.current]).fadeOut(300, () => {
+                    questions.current++
+                    $(forms[questions.current]).fadeIn(200)
+                })
+            },
+            exit: function (event, callback) {
+                questions.answers = { 
+                    terms_left: null,
+                    groups_of_5: null,
+                    old_member: null
+                }
+
+
+                closeCurrentModal();
+                $("#register").fadeOut(function(){
+                    $(forms).hide();
+                    questions.current = 0
+                    $(forms[questions.current]).show()
+                    if (callback)
+                        callback()
+                })
+            },
+            submit: function(event) {
+                form_register.assignMembership(this.answers)
+                this.exit(event, () => { 
+                    transitionSection("form")
+                })
+            }
+        }
+    })
+
+    
+    $(forms[questions.current]).show()
+
+</script>

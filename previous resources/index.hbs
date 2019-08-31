@@ -1,0 +1,44 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <!-- CSS FILES -->
+        <link href="./styles/fonts.css" rel="stylesheet"/>
+        <link rel = "stylesheet" type="text/css" href="./styles/main.css"/>
+        <link rel = "stylesheet" type="text/css" href="./styles/logo.css"/>
+        
+        <script src="./libraries/vue/vue.js"> </script>
+        <script src="./libraries/jquery.min.js"> </script>
+        <script src="./libraries/particles.min.js"> </script>
+
+        <script src="./scripts/actions.js"> </script>
+        <style> 
+            #main { 
+                max-width: 1000px;
+                min-height: calc(100% - 60px);
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+            } 
+        </style>
+    </head>
+    <body>
+        <div id = "background"> </div>
+
+        <div id = "main">
+            <div id = "home" class = "section brand vertical container"> 
+                {{#>home}} Home Page {{/home}}
+            </div>
+            <div id = "form" class = "section brand vertical container"> 
+                {{#>form}} Registration Form {{/form}}
+            </div>
+        </div>
+        
+        {{#>register}} Register Modal {{/register}}
+        {{#>juniorofficer}} Junior Officer Modal {{/juniorofficer}}
+        {{#>confirm}} Confirm Modal {{/confirm}}
+        {{#>error}} Error Modal {{/error}}
+    </body>
+
+    <script src="./scripts/particles_config.js"> </script>
+    <script src="./scripts/navigation.js"> </script>
+</html>

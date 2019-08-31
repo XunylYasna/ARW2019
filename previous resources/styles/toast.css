@@ -1,0 +1,27 @@
+div#toast_container {
+    position: fixed;
+    width: 400px;
+    bottom: 0;
+    right: 0;
+    z-index: 5;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column-reverse;
+    background: none;
+}
+
+div#toast_container .toast {
+    border-radius: 3px;
+    color: white;
+    background: black;
+    margin: 5px;
+    padding: 5px 20px;
+    font-size: 20px;
+}
+
+div#toast_container .timestamp {
+    width: 100%;
+    text-align: left;
+    color: var(--light-gray);
+    font-size: 12px;
+}

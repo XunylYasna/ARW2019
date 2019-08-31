@@ -1,0 +1,276 @@
+<h1 class = "brand header"> REGISTRATION </h1> 
+
+<div id = "form_index" class = "brand form-main">
+    <div class = "brand label" v-if = "form_data.membership_type?form_data.membership_type.substring(0, 'groups_of_5'.length) === 'groups_of_5':false">  
+        Member #\{{form_data.current_member}}
+    </div>
+    <div v-for="(field, name) in fields" class = "brand field">
+        <span v-if= "name == 'receipt'"> 
+            <h4 class = "brand header"> PAYMENT </h4>
+            <p class = "brand text"> 
+                Please pay the amount below to the nearest officer. 
+                After paying, enter the receipt number below 
+                and click submit to finish. 
+            </p>
+            <h5 class = "brand emphasis"> 
+                Total: &#8369; 
+                \{{ fees[form_data.membership_type] ? fees[form_data.membership_type].toFixed(2) : '' }} 
+                (<span v-if = "form_data.membership_type === 'honorary'">Honorary </span>
+                <span v-else-if = "form_data.membership_type === 'groups_of_5_new'">Group of 5 New Members</span> 
+                <span v-else-if = "form_data.membership_type === 'groups_of_5_old'">Group of 5 Old Members</span> 
+                <span v-else-if = "form_data.membership_type === '_new'">New Member</span>
+                <span v-else-if = "form_data.membership_type === '_old'">Old Member</span>)
+            </h5>
+        </span>
+        <label class = "label"> 
+            \{{field.question ? field.question : field.name}} 
+        </label>
+        <input v-model = "form_data[name]" v-if = "field.type == 'number'" type="number" class = "input">
+        <div v-else-if = "field.type == 'single' && field.others">
+            <select v-model = "form_data[name]" class = "input"> 
+                <option v-for = "choice in field.choices"> \{{choice}} </option> 
+                <option v-if = "field.others"> OTHERS </option>
+            </select>
+            <input v-if = "form_data[name] == 'OTHERS'" v-model = "form_data[name + '-others']" type = "text" class = "input"> 
+        </div>
+        <select v-model = "form_data[name]" v-else-if = "field.type == 'single'" class = "input"> 
+            <option v-for = "choice in field.choices"> \{{choice}} </option> 
+        </select> 
+        <div v-else-if = "field.type == 'boolean'">
+            <div class = "brand checkbox_input">
+                <div class="brand checkbox">
+                    <input v-model = "form_data[name]" value = "true" type="radio" class = "input">
+                    <img class="icon"src="./resources/checked.svg"> </span>
+                </div>
+                <label class = "label"> Yes </label>
+            </div>
+            <div class = "brand checkbox_input">
+                <div class="brand checkbox">
+                    <input v-model = "form_data[name]" value = "false" type="radio" class = "input">
+                    <img class="icon"src="./resources/checked.svg"> </span>
+                </div>
+                <label class = "label"> No </label>
+            </div>
+        </div>
+        <input v-model = "form_data[name]" v-else-if = "field.type == 'email'" type="email" class = "input">
+        <input v-model = "form_data[name]" v-else type="text" class = "input">
+        <p class = "message" v-if = "!field.validate(form_data[name], form_data[name+'-others'])"> \{{field.message}} </p>
+    </div>
+    
+    <button v-on:click = "submit" id = "submit_button" class = "brand button"> Submit </button>
+    <button id = "back" class = "brand button close"> Cancel </button>
+</div>
+
+<script>
+    
+    var form_register = new Vue ({
+        el: "#form_index",
+        data: {
+            "fields": {
+                "id_number": {
+                    "name": "I.D. Number",
+                    "type": "number",
+                    "validate": function (value) {
+                        if (!value) return false
+                        try {
+                            value = parseInt(value)
+                            return true
+                        } catch (e) {
+                            return false
+                        }
+                    },
+                    "message": "ID Number should be an integer."
+                },
+                "last_name": {
+                    "name": "Last Name",
+                    "type": "text",
+                    "validate": function (value) {
+                        return value ? true : false
+                    },
+                    "message": "Please indicate your Last Name."
+                }, 
+                "given_name": {
+                    "name": "Given Name",
+                    "type": "text",
+                    "validate": function (value) {
+                        return value ? true : false
+                    },
+                    "message": "Please indicate your First Name."
+                }, 
+                "middle_name": {
+                    "name": "Middle Name",
+                    "type": "text",
+                    "validate": function (value) {
+                        return true
+                    },
+                    "message": "Please indicate your Middle Name."
+                },
+                "course": {
+                    "name": "Course",
+                    "type": "single",
+                    "choices": [
+                        "BSCS",
+                        "BSIT",
+                        "BSCS-ST",
+                        "BSCS-NE",
+                        "BSCS-IST",
+                        "BSCS-CSE",
+                        "BS-INSYS",
+                        "IET-GD2",
+                        "IET-AD2",
+                        "IET-GDS",
+                        "IET-ADS",
+                        "CSS",
+                        "BSMSCS"
+                    ], 
+                    "others": true,
+                    "validate": function (value, value_others) {
+                        return value != "OTHERS" ? (value ? true : false) : value_others ? true : false
+                    },
+                    "message": "Course must not be empty."
+                },
+                "contact_number": {
+                    "name": "Contact Number",
+                    "type": "number",
+                    "validate": function (value) {
+                        if (!value) return false
+                        try {
+                            value = parseInt(value)
+                            return true
+                        } catch (e) {
+                            return false
+                        }
+                    },
+                    "message": "Contact number should be a number."
+                },
+                "fb_name": {
+                    "name": "Facebook Name",
+                    "type": "text",
+                    "validate": function (value) {
+                        return value ? true : false
+                    },
+                    "message": "Facebook name should not be empty."
+                },
+                "email_address_dlsu": {
+                    "name": "DLSU Email",
+                    "type": "email",
+                    "validate": function (value) {
+                        return value ? value.endsWith("@dlsu.edu.ph") : false
+                    },
+                    "message": "Use your DLSU Google Mail account."
+                },
+                "officer": {
+                    "name": "Officer",
+                    "question": "Are you an officer?",
+                    "type": "boolean",
+                    "validate": function (value) {
+                        return value ? true : false
+                    },
+                    "message": "Please indicate if you are an officer or not."
+                },
+                "receipt": {
+                    "name": "Receipt No.",
+                    "type": "text",
+                    "validate": function (value) {
+                        if (!value) return false
+                        try {
+                            value = parseInt(value)
+                            return true
+                        } catch (e) {
+                            return false
+                        }
+                    },
+                    "message": "Receipt number should be a number."
+                }
+            },
+            "form_data": { 
+                "membership_type": ""
+            },
+            "data_to_send": [],
+            "fees": require("./../config/fees.json")
+        },
+        methods: { 
+            saveData: function (jo) {
+                this.form_data.applied_for_jo = jo;
+                this.data_to_send.push(Object.assign({}, this.form_data))
+                if (this.form_data.membership_type === 'groups_of_5_old' ||
+                    this.form_data.membership_type === 'groups_of_5_new') {
+                    this.form_data.current_member ++
+                    if (this.form_data.current_member <= 5) {
+                        var membership = this.form_data.membership_type 
+                        var current_member = this.form_data.current_member
+                        this.form_data = {
+                            "membership_type": membership,
+                            "current_member": current_member
+                        }
+                        $("body, html").animate({scrollTop: 0}, 100);
+                        return false;
+                    }
+                }
+
+                this.form_data = {
+                    "membership_type": ""
+                }
+
+                saveMemberInformation(this.data_to_send)
+                this.data_to_send = []
+                transitionSection("home")
+            },
+            validate: function () {
+                let status = true
+                let message = ""
+
+                for (i in this.fields) {
+                    let field = this.fields[i]
+                    let temp_status = !field.validate(this.form_data[i], this.form_data[i + '-others'])
+                    message += temp_status ? field.message + "\n": ""
+                    status = status && !temp_status
+                }
+
+                return {status, message}
+            },
+            submit: function (data) {
+                this.form_data.timestamp = Date.now()
+                let validation = this.validate()
+
+                if (validation.status) {
+                    if (this.form_data.officer ? this.form_data.officer === "false" : true) {
+                        return showModal("juniorofficer")
+                    } else {
+                        form_register.saveData()
+                    }
+                    
+                    return;
+                }
+
+                error.code = "Input Error"
+                error.message = validation.message
+                showModal("error")
+
+            },
+            assignMembership: function(data) {
+                this.form_data.terms_left = data.terms_left
+                if (data.terms_left <= 3) {
+                    this.form_data.membership_type = "honorary"
+                    return
+                }
+                
+                if (data.groups_of_5 == "true") {
+                    this.form_data.membership_type = "groups_of_5"
+                    this.form_data.current_member = 1;
+                }
+
+                if (data.old_member == "true") {
+                    this.form_data.membership_type += "_old"
+                    return 
+                }
+
+                this.form_data.membership_type += "_new"
+            }
+        }
+    })
+
+    document.getElementById("back").onclick = function () { 
+        transitionSection("home") 
+    }
+</script>

@@ -1,0 +1,42 @@
+<style>
+    .brand.title.error {
+        color: var(--red);
+        font-size: 24px;
+    }
+
+    #error .brand.error-message {
+        color: var(--light-red);
+        font-size: 20px;
+        margin: 10px 0px;
+        padding: 0;
+        white-space: pre-wrap;
+    }
+</style>
+<div id = "error" class = "brand modal"> 
+    <div class = "background"> </div>
+    <div class = "main"> 
+        <h4 class = "brand title error"> ERROR: \{{ code }} </h4>
+
+        <p class = "brand error-message">\{{ message }}</p>
+        <button @click = "close" class = "button brand"> Okay </button>
+
+        <button @click= "close" class = "button brand close-modal">
+            <img src="./resources/cancel.svg" width="20px" height="20px">
+        </button>
+    </div>
+</div>
+<script>
+    let error = new Vue ({
+        el: "#error",
+        data: {
+            code: "",
+            message: "",
+            callback: function () { }
+        },
+        methods: {
+            close: function () {
+                closeCurrentModal()
+            }
+        }
+    })
+</script>
