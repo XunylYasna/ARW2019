@@ -68,6 +68,7 @@ app.use((req,res,next) =>{
 })
 
 
+
 // Routes
 app.use(express.static(__dirname + '/public'));
 app.use('/register', require('./routes/registration'))
