@@ -1,3 +1,17 @@
+:root {
+  --black-gray: #535353;
+  --light-gray: #A2A2A2;
+
+  --blue: #025187;
+  --light-blue: #2c8dce;
+
+  --yellow: #FCDB51;
+  --light-yellow: #fdea9b;
+
+  --red: #b22222;
+  --light-red: #cc4848;
+}
+
 /* #particles {
     position: relative;
     height: 100vh;
@@ -15,95 +29,104 @@
     
   } */
 
+* {
+  font-family: "Lato"
+}
 
-  div#register {
-    width: 500px;
-  }
+div#register {
+  width: 500px;
+}
 
-  .wrap-input {
-    width: 100%;
-    position: relative;
-    border-bottom: 2px solid #d9d9d9;
-  }
-  
-  .input {
-    border: none;
-    font-family: "Lato";
-    font-size: 18px;
-    color: #555555;
-    line-height: 1.2;
-  
-    display: block;
-    width: 100%;
-    height: 52px;
-    background: transparent;
-    padding: 0 5px;
-  }
+.container {
+  background-color: rgba(255, 255, 255, 0.815);
+  box-shadow: 0.5px 5px 8px 0px rgba(0,0,0,0.1);
+  padding: 20px;
+}
 
-  .validate-input {
-    position: relative;
-  }
+.wrap-input {
+  width: 100%;
+  position: relative;
+  border-bottom: 2px solid #d9d9d9;
+}
 
-  .focus-input {
-    position: absolute;
-    display: block;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-  }
-  
-  .focus-input::before {
-    content: "";
-    display: block;
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 0;
-    height: 3px;
-  
-    -webkit-transition: all 0.4s;
-    -o-transition: all 0.4s;
-    -moz-transition: all 0.4s;
-    transition: all 0.4s;
-  
-    background: #2c8dce;
-  }
-  
-  .focus-input::after {
-    font-family: "Lato";
-    font-size: 18px;
-    color: #999999;
-    line-height: 1.2;
-  
-    content: attr(data-placeholder);
-    display: block;
-    width: 100%;
-    position: absolute;
-    top: 15px;
-    left: 0px;
-    padding-left: 5px;
-  
-    -webkit-transition: all 0.4s;
-    -o-transition: all 0.4s;
-    -moz-transition: all 0.4s;
-    transition: all 0.4s;
-  }
-  
-  .input:focus + .focus-input::after {
-    top: -20px;
-    font-size: 15px;
-  }
-  
-  .input:focus + .focus-input::before {
-    width: 100%;
-  }
+.input {
+  border: none;
+  font-family: "Lato";
+  font-size: 18px;
+  color: #555555;
+  line-height: 1.2;
 
-  .m-b-32 {
-    margin-bottom: 32px;
-  }
+  display: block;
+  width: 100%;
+  height: 52px;
+  background: transparent;
+  padding: 0 5px;
+}
 
-  .m-b-60 {
-    margin-bottom: 60px;
-  }
+.validate-input {
+  position: relative;
+}
+
+.focus-input {
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+.focus-input::before {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 3px;
+
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+
+  background: var(--light-blue);
+}
+
+.focus-input::after {
+  font-family: "Lato";
+  font-size: 18px;
+  color: #999999;
+  line-height: 1.2;
+
+  content: attr(data-placeholder);
+  display: block;
+  width: 100%;
+  position: absolute;
+  top: 15px;
+  left: 0px;
+  padding-left: 5px;
+
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+}
+
+.input:focus + .focus-input::after {
+  top: -20px;
+  font-size: 15px;
+}
+
+.input:focus + .focus-input::before {
+  width: 100%;
+}
+
+.m-b-32 {
+  margin-bottom: 32px;
+}
+
+.m-b-60 {
+  margin-bottom: 60px;
+}
