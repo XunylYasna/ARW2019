@@ -1,73 +1,76 @@
 <div id="particles">
-    <div class="container text-center">
+    <div id = "register" class="container">
         <div class = "brand vertical center container">
-            <h4 class = "brand title"> 
+            <h4 class = "brand title m-b-60"> 
                 Tell us about yourself!
             </h4>
 
-            <div class="" data-validate="Enter your ID Number">
-                <input class="" type="text" name="id_number">
-                <span class="" data-placeholder="ID Number (e.g. 11201234)"></span>
-            </div>
+            <form class="register-form validate-form">
+                <div class="wrap-input validate-input m-b-32" data-validate="Enter your ID Number">
+                    <input class="input" type="text" name="id_number">
+                    <span class="focus-input" data-placeholder="ID Number (e.g. 11201234)"></span>
+                </div>
 
-            <div class="" data-validate="Enter your Last Name">
-                <input class="" type="text" name="last_name">
-                <span class="" data-placeholder="Last Name"></span>
-            </div>
+                <div class="wrap-input validate-input m-b-32" data-validate="Enter your Last Name">
+                    <input class="input" type="text" name="last_name">
+                    <span class="focus-input" data-placeholder="Last Name"></span>
+                </div>
 
-            <div class="" data-validate = "Enter your Given Name">
-                <input class="" type="text" name="first_name">
-                <span class="" data-placeholder="Given Name"></span>
-            </div>
+                <div class="wrap-input validate-input m-b-32" data-validate = "Enter your Given Name">
+                    <input class="input" type="text" name="first_name">
+                    <span class="focus-input" data-placeholder="Given Name"></span>
+                </div>
 
-            <div class="" data-validate="Enter your Middle Name">
-                <input class="" type="text" name="middle_name">
-                <span class="" data-placeholder="Middle Name"></span>
-            </div>
-            <!--
-                a.	"BSCS", "BSIT", "BSCS-ST", "BSCS-NE", "BSCS-IST", "BSCS-CSE", 
-                "BS-INSYS", "IET-GD2", "IET-AD2", "IET-GDS", "IET-ADS", "CSS", "BSMSCS", others
-            -->
-            <select class="form-control">
-                <option value="BSCS">BSCS</option>
-                <option value="BSIT">BSIT</option>
-                <option value="BSCS-ST">BSCS-ST</option>
-                <option value="BSCS-NE">BSCS-NE</option>
-                <option value="BSCS-IST">BSCS-IST</option>
-                <option value="BSCS-CSE">BSCS-CSE</option>
-                <option value="BS-INSYS">BS-INSYS</option>
-                <option value="IET-GD2">IET-GD2</option>
-                <option value="IET-AD2">IET-AD2</option>
-                <option value="IET-GDS">IET-GDS</option>
-                <option value="IET-ADS">IET-ADS</option>
-                <option value="CSS">CSS</option>
-                <option value="BSMSCS">BSMSCS</option>
-            </select>
+                <div class="wrap-input validate-input m-b-32" data-validate="Enter your Middle Name">
+                    <input class="input" type="text" name="middle_name">
+                    <span class="focus-input" data-placeholder="Middle Name"></span>
+                </div>
+                <!--
+                    a.	"BSCS", "BSIT", "BSCS-ST", "BSCS-NE", "BSCS-IST", "BSCS-CSE", 
+                    "BS-INSYS", "IET-GD2", "IET-AD2", "IET-GDS", "IET-ADS", "CSS", "BSMSCS", others
+                -->
+                <div class="wrap-input validate-input m-b-32">
+                    <select class="form-control">
+                        <option value="BSCS">BSCS</option>
+                        <option value="BSIT">BSIT</option>
+                        <option value="BSCS-ST">BSCS-ST</option>
+                        <option value="BSCS-NE">BSCS-NE</option>
+                        <option value="BSCS-IST">BSCS-IST</option>
+                        <option value="BSCS-CSE">BSCS-CSE</option>
+                        <option value="BS-INSYS">BS-INSYS</option>
+                        <option value="IET-GD2">IET-GD2</option>
+                        <option value="IET-AD2">IET-AD2</option>
+                        <option value="IET-GDS">IET-GDS</option>
+                        <option value="IET-ADS">IET-ADS</option>
+                        <option value="CSS">CSS</option>
+                        <option value="BSMSCS">BSMSCS</option>
+                    </select>
+                </div>
 
-            <div class="" data-validate="Error msg">
-                +63
-                <input class="" type="text" name="contact_number">
-                <span class="" data-placeholder="Contact Number (e.g. 09061234567)"></span>
-            </div>
+                <div class="wrap-input validate-input m-b-32" data-validate="Error msg">
+                    <input class="input" type="text" name="contact_number">
+                    <span class="focus-input" data-placeholder="Contact Number (e.g. 09061234567)"></span>
+                </div>
 
-            <div class="" data-validate="Error msg">
-                <input class="" type="text" name="facebook_name">
-                <span class="" data-placeholder="Facebook Name"></span>
-            </div>
+                <div class="wrap-input validate-input m-b-32" data-validate="Error msg">
+                    <input class="input" type="text" name="facebook_name">
+                    <span class="focus-input" data-placeholder="Facebook Name"></span>
+                </div>
 
-            <div class="" data-validate="Error msg">
-                <input class="" type="text" name="dlsu_mail">
-                <span class="" data-placeholder="DLSU email"></span>
-            </div>
+                <div class="wrap-input validate-input m-b-32" data-validate="Error msg">
+                    <input class="input" type="text" name="dlsu_mail">
+                    <span class="focus-input" data-placeholder="DLSU email"></span>
+                </div>
 
-            <div class="" data-validate="Error msg">
-                <input class="" type="text" name="receipt_number">
-                <span class="" data-placeholder="Reciept Number"></span>
-            </div>
+                <div class="wrap-input validate-input m-b-32" data-validate="Error msg">
+                    <input class="input" type="text" name="receipt_number">
+                    <span class="focus-input" data-placeholder="Reciept Number"></span>
+                </div>
 
-            <button id = "submit-btn" class="brand button">
-                SUBMIT
-            </button>
+                <button id = "submit-btn" class="brand button">
+                    SUBMIT
+                </button>
+            </form>
         
         </div>
     </div>
