@@ -12,13 +12,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Handlebars
 const exphbs  = require('express-handlebars');
 
-var hbsHelpers = exphbs.create({
-    extname: '.hbs',
-    defaultLayout: 'main',
-    // helpers: require("./helpers/maphelper.js").helpers,
-    layoutsDir: path.join(__dirname, "views/layouts/"),
-    partialsDir: path.join(__dirname, 'views/partials')
-});
 
 app.engine( 'hbs', exphbs( {
     extname: '.hbs',
@@ -80,5 +73,8 @@ app.use(express.static(__dirname + '/public'));
 app.use('/register', require('./routes/registration'))
 app.use('/dashboard',require('./routes/dashboard'))
 
+app.get('/', (req,res) =>{
+  res.render('welcome')
+})
 
 app.listen(PORT, console.log(`Server started on port ${PORT}`))

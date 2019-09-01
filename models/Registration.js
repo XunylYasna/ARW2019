@@ -12,13 +12,8 @@ const RegistrationSchema = new mongoose.Schema({
     },
 
     amount:{ 
-        type: String,
-        required: true
-    },
-
-    score: {
         type: Number,
-        default:0
+        required: true
     }
 })
 
