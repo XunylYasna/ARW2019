@@ -33,6 +33,10 @@
   font-family: "Lato"
 }
 
+#particles-js {
+  justify-items: center;
+}
+
 div#register {
   width: 500px;
 }
@@ -129,4 +133,13 @@ div#register {
 
 .m-b-60 {
   margin-bottom: 60px;
+}
+
+.not-empty.input + .focus-input::after {
+  top: -20px;
+  font-size: 15px;
+}
+
+.not-empty.input + .focus-input::before {
+  width: 100%;
 }
