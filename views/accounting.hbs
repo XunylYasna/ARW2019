@@ -1,1 +1,79 @@
-accounting
+<div id="particles">
+    <nav class="navbar navbar-expand-lg" style="background-color: #fde3e300;">
+        <img src="/res/icons/apple-touch-icon-152x152.png" alt="" height="45px">
+        <a class="navbar-brand" href="#">La Salle Computer Society</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </nav>
+
+    <div class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h1>Accounting</h1>
+                    <p>All</p>
+                </div>
+
+                <div class="col">
+                    <div class="dropdown">
+                    <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Filter by day
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item active" href="#">All</a>
+                        <a class="dropdown-item" href="#">October 7</a>
+                        <a class="dropdown-item" href="#">October 8</a>
+                        <a class="dropdown-item" href="#">October 9</a>
+                        <a class="dropdown-item" href="#">October 10</a>
+                        </div>
+                     </div> 
+                </div>
+            
+            </div>
+        
+            <hr>
+            <table class="table table-borderless">
+                <thead>
+                    <tr>
+                    <th scope="col">Registration Type</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    <td>Honorary</td>
+                    <td>{{HQ}} 0 </td>
+                    <td>{{HA}} 0 </td>
+                    </tr>
+                    <tr>
+                    <td>New Member Solo</td>
+                    <td>{{NMSQ}} 0 </td>
+                    <td>{{NMSA}} 0 </td>
+                    </tr>
+                    <tr>
+                    <td>New Member Group</td>
+                    <td>{{NMGQ}} 0 </td>
+                    <td>{{NMGA}} 0 </td>
+                    </tr>
+                    <tr>
+                    <td>Old Member Solo</td>
+                    <td>{{NMGQ}} 0 </td>
+                    <td>{{NMGA}} 0 </td>
+                    </tr>
+                    <tr>
+                    <td>Old Member Group</td>
+                    <td>{{OMGQ}} 0 </td>
+                    <td>{{OMGA}} 0 </td>
+                    </tr>
+                    <tr class="table-active">
+                    <th scope="row">Total</td>
+                    <td>{{TQ}} 0 </td>
+                    <td>{{TA}} 0 </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
