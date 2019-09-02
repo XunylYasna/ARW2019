@@ -12,34 +12,100 @@
   --light-red: #cc4848;
 }
 
-/* #particles {
-    position: relative;
-    height: 100vh;
-  }
-  
-  #particles .content {
-    top: 50px;
-    position: absolute;
-    height: 100% !important; 
-    width:100% !important;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    
-  } */
 
 * {
   font-family: "Lato"
 }
 
-#particles-js {
-  justify-items: center;
+
+
+  /* Welcome */
+#particles {
+  position: relative;
+  height: 100vh;
 }
 
-div#register {
-  width: 500px;
+#particles .content {
+  top: 10%;
+  margin-left: 50vw;
+  transform: translateX(-50%);
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  min-width: 80%;
 }
+
+
+.about {
+  min-height: 355px;
+  padding-top: 35px;
+  background-color: #025187;
+  width: 100%;
+}
+
+.about header {
+  display: block;
+}
+
+.about header span {
+  font-family: "Raleway", sans-serif;
+  text-align: center;
+  display: block;
+  
+}
+
+.about header span:first-child {
+  text-transform: uppercase;
+  font-size: 32px;
+  color: #FCDB51;
+}
+
+.about header span:last-child {
+  /* margin-top: -25px; */
+  font-size: 16px;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.about>p {
+  font-family: "Open Sans", sans-serif;
+  text-align: center;
+  color: #ffffff;
+  padding: 25px 80px;
+  font-size: 18px;
+}
+
+.about>p .about-link {
+  display: inline-block;
+  font-family: "Raleway";
+  font-size: 16px;
+  font-weight: 500;
+  padding: 7px 0;
+  min-width: 200px;
+  color: #545454;
+  background-color: #FCDB51;
+
+  min-width: 130px;
+  text-align: center;
+  text-decoration: none !important;
+  transition: all 175ms ease-out;
+  border-radius: 4px;
+}
+
+.about>p .about-link:hover {
+  background-color: #dbbd44;
+}
+
+
+  /* End Welcome */
+
+  /* Registrattion */
+  div#register {
+    width: 500px;
+  }
 
 .container {
   background-color: rgba(255, 255, 255, 0.815);
@@ -106,7 +172,7 @@ div#register {
 
   content: attr(data-placeholder);
   display: block;
-  width: 100%;
+  width: 100%;    
   position: absolute;
   top: 15px;
   left: 0px;
@@ -203,3 +269,8 @@ div#register {
     opacity: 1;
   }
 }
+  .m-b-60 {
+    margin-bottom: 60px;
+  }
+
+  /* End registration */

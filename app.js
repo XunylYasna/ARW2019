@@ -36,7 +36,6 @@ mongoose.connect(db, { useNewUrlParser : true })
 
 
 // Express Session Middleware
-
 const session = require('express-session');
 app.use(session({
   secret: 'killroy',
@@ -48,10 +47,10 @@ app.use(session({
 
 // Passport middleware
 
-// const passport = require('passport');
-// require('./config/passport')(passport);
-// app.use(passport.initialize());
-// app.use(passport.session());
+const passport = require('passport');
+require('./config/passport')(passport);
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Connect Flash
 
@@ -74,8 +73,16 @@ app.use(express.static(__dirname + '/public'));
 app.use('/register', require('./routes/registration'))
 app.use('/dashboard',require('./routes/dashboard'))
 
+
 app.get('/', (req,res) =>{
   res.render('welcome')
 })
+
+// For Password Authenitcation
+const bcrypt = require('bcryptjs')
+app.get('/login', (req,res) => {
+  res.render('login')
+})
+
 
 app.listen(PORT, console.log(`Server started on port ${PORT}`))
