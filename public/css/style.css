@@ -149,7 +149,7 @@ div#register {
   position: absolute;
   max-width: 70%;
   background-color: #fff;
-  border: 1px solid #c80000;
+  border: 1px solid var(--red);
   border-radius: 2px;
   padding: 4px 25px 4px 10px;
   top: 50%;
@@ -161,7 +161,7 @@ div#register {
   right: 0px;
   pointer-events: none;
 
-  color: #c80000;
+  color: var(--red);
   font-size: 13px;
   line-height: 1.4;
   text-align: left;
@@ -178,7 +178,7 @@ div#register {
 .alert-validate::after {
   content: "!";
   font-size: 16px;
-  color: #c80000;
+  color: --red;
 
   display: block;
   position: absolute;
