@@ -6,6 +6,12 @@ const MemberSchema = new mongoose.Schema({
         required: true
     },
 
+    idNum: {
+        type: Number,
+        required: true,
+        unique: true
+    },
+
     email: {
         type: String,
         required: true,
@@ -17,7 +23,9 @@ const MemberSchema = new mongoose.Schema({
         default: Date.now
     },
 
-    
+    course:String,
+    contactNum: Number,
+    facebookName: String
 })
 
 const Member = mongoose.model('Member', MemberSchema)
