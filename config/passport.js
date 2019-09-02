@@ -1,49 +1,35 @@
-// const LocalStrategy = require('passport-local').Strategy
-// const mongoose = require('mongoose')
-// const bcrypt = require('bcryptjs')
-
-// const User = require('../model/Member')
+const LocalStrategy = require('passport-local').Strategy
+const bcrypt = require('bcryptjs')
+const hashedpassword = '$2a$10$Zcvz5uzRLAJHbx4PO73SheFdnmZfRvidCu9sct59u9WhNaINRX9X2' //JonalRayTicug
 
 
-// module.exports = function(passport){
-//     passport.use(
-//         new LocalStrategy({
-//             usernameField: 'email',
-//         },
-//         (email,password, done)=>{
-//             //Match User
-//             User.findOne({email})
-//                 .then(user =>{
-//                     if(!user){
-//                         return done(null, false, {message : 'Email is not registered.'})
+module.exports = function(passport){
+    passport.use(
+        new LocalStrategy({
+            passwordField: 'password',
+        },
+        (password, done)=>{
+            //Match Password
+            bcrypt.compare(hashedpassword, {password}, (err,isMatch) => {
+                if(err) throw err;
 
-//                     }
+                if(isMatch){
+                    return done(null, true)
+                } 
 
-//                     // Found User Email
-//                     bcrypt.compare(password, user.password, (err,isMatch) => {
-//                         if(err) throw err;
+                else{
+                    return done(null, false, {message: 'Password is incorrect'})
+                }
+            })
+        })
+    
+    )
 
-//                         if(isMatch){
-//                             return done(null, user)
-//                         } 
-
-//                         else{
-//                             return done(null, false, {message: 'Password is incorrect'})
-//                         }
-//                     })
-//                 })
-//                 .catch(err => console.log(err))
-//         }
-//         )
-//     )
-
-//     passport.serializeUser(function(user, done) {
-//         done(null, user.id);
-//       });
+    passport.serializeUser(function(user, done) {
+        done(null, null);
+      });
       
-//     passport.deserializeUser(function(id, done) {
-//     User.findById(id, function(err, user) {
-//         done(err, user);
-//     });
-//     });
-// }
+    passport.deserializeUser(function(id, done) {
+    
+    });
+}
