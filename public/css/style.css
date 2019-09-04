@@ -103,14 +103,47 @@
   /* End Welcome */
 
   /* Registrattion */
-  div#register {
-    width: 500px;
-  }
 
-.container {
-  background-color: rgba(255, 255, 255, 0.815);
-  box-shadow: 0.5px 5px 8px 0px rgba(0,0,0,0.1);
-  padding: 20px;
+#register.content {
+  min-width: 55%;
+  width: 500px;
+  background-color: rgba(255, 255, 255, 0.89);
+  box-shadow: 0.5px 5px 8px 0px rgba(10, 71, 112, 0.3);
+  padding: 40px 20px;
+}
+
+.action-button, .action-button-previous {
+  width: 100px;
+  font-weight: bold;
+  color: white;
+  border: 0 none;
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 10px 5px;
+}
+
+.action-button {
+  background: var(--blue);
+  float: right;
+}
+
+.action-button-previous {
+  background: var(--yellow);
+  float: left;
+}
+
+.action-button:hover, .action-button:focus {
+  transition: all .25s linear;
+  box-shadow: 0 0 0 2px white, 0px 4px 15px 0px var(--light-blue);
+}
+
+.action-button-previous:hover, .action-button-previous:focus {
+  transition: all .25s linear;
+  box-shadow: 0 0 0 2px white, 0px 4px 15px 0px var(--yellow);
+}
+
+.action-button-previous:active, .action-button:active {
+  box-shadow: 0 0 0 2px white;
 }
 
 .wrap-input {
@@ -185,8 +218,9 @@
 }
 
 .input:focus + .focus-input::after {
-  top: -20px;
+  top: -15px;
   font-size: 15px;
+  color: var(--light-blue);
 }
 
 .input:focus + .focus-input::before {
@@ -202,7 +236,7 @@
 }
 
 .not-empty.input + .focus-input::after {
-  top: -20px;
+  top: -12px;
   font-size: 15px;
 }
 
