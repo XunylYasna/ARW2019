@@ -1,35 +1,33 @@
-<div id="particles-js">
+<div id="particles">
     <div id = "register" class="container">
-        <div class = "brand vertical center">
-            <h4 class = "brand title m-b-60"> 
+        <form class="register-form validate-form">
+            <fieldset>
+                <h4 class = "brand title m-b-32"> 
                 Tell us about yourself!
-            </h4>
-
-            <form class="register-form validate-form">
+                </h4>
                 <div class="wrap-input validate-input m-b-32" data-validate="Enter your ID Number">
                     <input class="input" type="text" name="id_number">
                     <span class="focus-input" data-placeholder="ID Number (e.g. 11201234)"></span>
                 </div>
 
-                <div class="wrap-input validate-input m-b-32" data-validate="Enter your Last Name">
-                    <input class="input" type="text" name="last_name">
-                    <span class="focus-input" data-placeholder="Last Name"></span>
+                <div class="inline">
+                    <div class="wrap-input validate-input m-b-32" data-validate="Enter your Last Name">
+                        <input class="input" type="text" name="last_name">
+                        <span class="focus-input" data-placeholder="Last Name"></span>
+                    </div>
+
+                    <div class="wrap-input validate-input m-b-32" data-validate = "Enter your Given Name">
+                        <input class="input" type="text" name="first_name">
+                        <span class="focus-input" data-placeholder="Given Name"></span>
+                    </div>
+
+                    <div class="wrap-input validate-input m-b-32" data-validate="Enter your Middle Name">
+                        <input class="input" type="text" name="middle_name">
+                        <span class="focus-input" data-placeholder="Middle Name"></span>
+                    </div>
                 </div>
 
-                <div class="wrap-input validate-input m-b-32" data-validate = "Enter your Given Name">
-                    <input class="input" type="text" name="first_name">
-                    <span class="focus-input" data-placeholder="Given Name"></span>
-                </div>
-
-                <div class="wrap-input validate-input m-b-32" data-validate="Enter your Middle Name">
-                    <input class="input" type="text" name="middle_name">
-                    <span class="focus-input" data-placeholder="Middle Name"></span>
-                </div>
-                <!--
-                    a.	"BSCS", "BSIT", "BSCS-ST", "BSCS-NE", "BSCS-IST", "BSCS-CSE", 
-                    "BS-INSYS", "IET-GD2", "IET-AD2", "IET-GDS", "IET-ADS", "CSS", "BSMSCS", others
-                -->
-                <div class="wrap-input validate-input m-b-32">
+                <div class="m-b-32">
                     <select class="form-control" data-live-search="true">
                         <option value="BSCS">BSCS</option>
                         <option value="BSIT">BSIT</option>
@@ -46,7 +44,14 @@
                         <option value="BSMSCS">BSMSCS</option>
                     </select>
                 </div>
+                <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
+                <input type="button" name="next" class="next action-button" value="Next"/>
+            </fieldset>
 
+            <fieldset>
+                <h4 class = "brand title m-b-32"> 
+                Your Contact Information
+                </h4>
                 <div class="wrap-input validate-input m-b-32" data-validate="Error msg">
                     <input class="input" type="text" name="contact_number">
                     <span class="focus-input" data-placeholder="Contact Number (e.g. 09061234567)"></span>
@@ -61,18 +66,19 @@
                     <input class="input" type="email" name="dlsu_mail">
                     <span class="focus-input" data-placeholder="DLSU email"></span>
                 </div>
+                <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
+                <input type="button" name="next" class="next action-button" value="Next"/>
+            </fieldset>
 
+            <fieldset>
                 <div class="wrap-input validate-input m-b-32" data-validate="Error msg">
                     <input class="input" type="text" name="receipt_number">
                     <span class="focus-input" data-placeholder="Reciept Number"></span>
                 </div>
-
-                <button id = "submit-btn" class="brand button">
-                    SUBMIT
-                </button>
-            </form>
-        
-        </div>
+                <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
+                <input type="submit" name="submit" class="submit action-button" value="Submit"/>
+            </fieldset>
+        </form>
     </div>
 </div>
 <script src="/js/form.js"></script>

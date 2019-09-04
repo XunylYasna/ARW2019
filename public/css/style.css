@@ -273,4 +273,23 @@
     margin-bottom: 60px;
   }
 
+.inline {
+  display: inline-flex;
+}
+
+.inline div {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.inline div:first-child {
+  margin-left: 0px;
+  margin-right: 5px;
+}
+
+.inline div:last-child {
+  margin-left: 5px;
+  margin-right: 0px;
+}
+
   /* End registration */
