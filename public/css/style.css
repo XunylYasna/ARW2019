@@ -104,6 +104,7 @@
 
   /* Registrattion */
 
+  /*
 #register.content {
   min-width: 55%;
   width: 500px;
@@ -111,25 +112,29 @@
   box-shadow: 0.5px 5px 8px 0px rgba(10, 71, 112, 0.3);
   padding: 40px 20px;
 }
+*/
 
 .action-button, .action-button-previous {
   width: 100px;
   font-weight: bold;
   color: white;
   border: 0 none;
-  border-radius: 10px;
+  border-radius: 25px;
   cursor: pointer;
   padding: 10px 5px;
 }
 
 .action-button {
   background: var(--blue);
-  float: right;
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
 }
 
 .action-button-previous {
   background: var(--yellow);
-  float: left;
+  position: absolute;
+  bottom: 30px;
 }
 
 .action-button:hover, .action-button:focus {
@@ -412,6 +417,21 @@
 }
 
 /*Fieldsets*/
+
+.register-set {
+  background: rgba(255, 255, 255, 0.89);
+  border: 0 none;
+  border-radius: 0px;
+  box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+  padding: 20px 30px;
+  box-sizing: border-box;
+  width: 520px;
+  height: 440px;
+  margin: auto;
+
+  /*stacking fieldsets above each other*/
+  position: relative;
+}
 
 #register fieldset:not(:first-of-type) {
   display: none;
