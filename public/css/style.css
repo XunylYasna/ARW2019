@@ -300,6 +300,9 @@
   margin: 10px auto;
   height: auto;
   width: auto;
+}
+
+.radio-btn-container :not(h4) {
   padding: 0px 20px;
 }
 
@@ -339,37 +342,45 @@
   content: '';
   width: 2.5em;
   background: #D1D3D4;
-  border-radius: 3px 0 0 3px;
 }
 
 .radio-btn-container input[type="radio"]:hover:not(:checked) ~ label {
   color: #888;
+  border: 1px solid #44a8eb91;
 }
 
 .radio-btn-container input[type="radio"]:hover:not(:checked) ~ label:before {
   content: '\2714';
   text-indent: .9em;
-  color: #C2C2C2;
+  color: #fff;
+  background-color: #44a8eb91;
 }
 
 .radio-btn-container input[type="radio"]:checked ~ label {
-  color: #777;
+  color: var(--light-blue);
+  border: 1px solid var(--light-blue);
 }
 
 .radio-btn-container input[type="radio"]:checked ~ label:before{
   content: '\2714';
   text-indent: .9em;
-  color: #333;
+  color: var(--light-blue);
   background-color: #ccc;
 }
 
 .radio-btn-container input[type="radio"]:focus ~ label:before {
-  box-shadow: 0 0 0 3px #999;
+  box-shadow: 0 0 0 3px #777;
 }
 
 .radio-btn input[type="radio"]:checked ~ label:before{
-  color: #333;
-  background-color: #ccc;
+  color: rgb(255, 255, 255);
+  background-color: var(--light-blue);
+}
+
+/*Fieldsets*/
+
+#register fieldset:not(:first-of-type) {
+  display: none;
 }
 
   /* End registration */
