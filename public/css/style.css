@@ -102,17 +102,20 @@
 
   /* End Welcome */
 
+  
   /* Registrattion */
 
-  /*
-#register.content {
-  min-width: 55%;
-  width: 500px;
-  background-color: rgba(255, 255, 255, 0.89);
-  box-shadow: 0.5px 5px 8px 0px rgba(10, 71, 112, 0.3);
-  padding: 40px 20px;
+#register h4 {
+  text-align: center;
+  color: var(--light-blue);
+  font-weight: bold;
+  font-family: "Raleway";
+  margin-top: 20px;
 }
-*/
+
+.inactive {
+  background: var(--light-gray); 
+}
 
 .action-button, .action-button-previous {
   width: 100px;
@@ -254,26 +257,24 @@
   position: absolute;
   max-width: 70%;
   background-color: #fff;
-  border: 1px solid var(--red);
+  /* border: 1px solid var(--red); */
   border-radius: 2px;
-  padding: 4px 25px 4px 10px;
-  top: 50%;
+  padding: 4px 25px 4px 18px;
+  top: 130%;
   -webkit-transform: translateY(-50%);
   -moz-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   -o-transform: translateY(-50%);
   transform: translateY(-50%);
-  right: 0px;
+  left: 0px;
   pointer-events: none;
-
+  font-family: "Lato";
   color: var(--red);
   font-size: 13px;
   line-height: 1.4;
   text-align: left;
-
   visibility: hidden;
   opacity: 0;
-
   -webkit-transition: opacity 0.4s;
   -o-transition: opacity 0.4s;
   -moz-transition: opacity 0.4s;
@@ -281,20 +282,19 @@
 }
 
 .alert-validate::after {
-  content: "!";
+  content: "*";
   font-size: 16px;
-  color: --red;
-
+  color: var(--red);
   display: block;
   position: absolute;
   background-color: #fff;
-  top: 50%;
+  top: 130%;
   -webkit-transform: translateY(-50%);
   -moz-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   -o-transform: translateY(-50%);
   transform: translateY(-50%);
-  right: 5px;
+  left: 5px;
 }
 
 .alert-validate:hover:before {
@@ -308,9 +308,10 @@
     opacity: 1;
   }
 }
-  .m-b-60 {
-    margin-bottom: 60px;
-  }
+
+.m-b-60 {
+  margin-bottom: 60px;
+}
 
 .inline {
   display: inline-flex;
