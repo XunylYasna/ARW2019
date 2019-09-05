@@ -82,8 +82,9 @@ $(document).ready(function () {
            hideValidate(this);
         });
     });
+    
 
-    /* */
+    /* Animations for transitioning between fieldsets */
     $('.next').click(function() {
         if (animating) return false; // prevents multi-clicking
         animating = true;
@@ -91,6 +92,14 @@ $(document).ready(function () {
         current_fs = $(this).parent(); // gets parent fieldset
         console.log(current_fs);
         next_fs = $(this).parent().next(); // gets fieldset after the parent fieldset
+        
+        // insert code for validation
+        
+        let children = current_fs.find('input,textarea');
+
+        console.log(children);
+        let valid = validFieldSet(children);
+        console.log(valid);
 
         // insert code for progress bar (not done)
 
