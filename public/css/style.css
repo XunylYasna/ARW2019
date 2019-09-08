@@ -125,6 +125,7 @@
   border-radius: 25px;
   cursor: pointer;
   padding: 10px 5px;
+  outline: none;
 }
 
 .action-button {
@@ -238,6 +239,10 @@
 
 .m-b {
   margin-bottom: 34px;
+}
+
+.m-t {
+  margin-top: 20px;
 }
 
 .m-b-60 {
@@ -428,7 +433,7 @@
   padding: 20px 30px;
   box-sizing: border-box;
   width: 520px;
-  height: 440px;
+  height: 460px;
   margin: auto;
 
   /*stacking fieldsets above each other*/
