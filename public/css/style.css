@@ -162,6 +162,7 @@
 
 .input {
   border: none;
+  outline: none;
   font-family: "Lato";
   font-size: 18px;
   color: #555555;
@@ -235,8 +236,8 @@
   width: 100%;
 }
 
-.m-b-32 {
-  margin-bottom: 32px;
+.m-b {
+  margin-bottom: 34px;
 }
 
 .m-b-60 {
