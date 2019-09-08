@@ -66,7 +66,7 @@ function validate (input) {
             break;
         case 'dlsu_mail': 
             // invalid if string does not end in @dlsu.edu.ph
-            if (value.match(/^([a-zA-Z._\-][ ]?)+@dlsu.edu.ph$/) === null) return false;
+            if (value.match(/^([0-9a-zA-Z._\-][ ]?)+@dlsu.edu.ph$/) === null) return false;
             break;
     }
     return true;
@@ -190,6 +190,22 @@ function setSubmitEvent () {
     });
 }
 
+function setInputLeaveEvent () {
+    $(document).on( "click", function( event ) {
+		if (event.target.matches(".input")) {
+            let input = event.target;
+            $(document).on( "click", function( event ) {
+                if (event.target != input) {
+                    if(validate(input) == false){
+                        showValidate(input);
+                    }
+                    setInputLeaveEvent();
+                }
+            });
+		}
+	});
+}
+
 $(document).ready(function () {
     checkEmptyInput(); // sets input classes based on whether an input is empty
 
@@ -204,5 +220,6 @@ $(document).ready(function () {
     setNextEvent();
     setPrevEvent();
     setSubmitEvent();
+    setInputLeaveEvent();
 
 });
