@@ -27,7 +27,10 @@ function validFieldSet (input) {
     for(var i=0; i<input.length; i++) {
         if(validate(input[i]) == false){
             showValidate(input[i]);
+            console.log('This input is invalid')
             check=false;
+        } else {
+            console.log('This input is invalid')
         }
     }
     return check;
@@ -47,11 +50,13 @@ function validate (input) {
         case 'first_name' || 'middle_name' || 'last_name': 
             // invalid if string is not alphabetical
             break;
+        case 'reciept_number': 
+            // invalid if does not match reciept format
+            break;
         case 'dlsu_mail': 
             // invalid if string does not end in @dlsu.edu.ph
             break;
     }
-    
     return valid;
 }
 
@@ -66,33 +71,11 @@ function hideValidate(input) {
     $(thisAlert).removeClass('alert-validate');
 }
 
-$(document).ready(function () {
-    let input = $('.validate-input .input');
-    let current_fs, next_fs, previous_fs; //fieldsets
+function setNextAction() {
+    let current_fs, next_fs; //fieldsets
     let left, opacity, scale; //fieldset properties which we will animate
     let animating; //flag to prevent quick multi-click glitches
 
-    checkEmptyInput();
-
-    /* Checks if inputs are valid */
-    $('.validate-form').on('submit', function () {
-        let valid = validFieldSet(input);
-        if (valid) {
-            /* insert code here */
-        } else {
-            /* insert code here */
-        }
-    });
-
-    /* Hides all validation alerts when document is loaded */
-    $('.validate-form .input').each(function() {
-        $(this).focus(function(){
-           hideValidate(this);
-        });
-    });
-    
-
-    /* Animations for transitioning between fieldsets */
     $('.next').click(function() {
         if (animating) return false; // prevents multi-clicking
         animating = true;
@@ -109,34 +92,44 @@ $(document).ready(function () {
         let valid = validFieldSet(children);
         console.log(valid);
 
-        // insert code for progress bar (not done)
+        // will only transition if all inputs are valid
+        if (valid) {
+            // insert code for progress bar (not done)
 
-        // display next fieldset
-        next_fs.show();
+            // display next fieldset
+            next_fs.show();
 
-        // animate hiding the current fieldset
-        current_fs.animate({opacity: 0}, {
-            step: function(now, mx) {
-                scale = 1 - (1 - now) * 0.2; // scale down current_fs to 80% 
-                left = (now * 50)+'%'; // next_fx slides from the right
-                opacity = 1 - now; // increase next_fs opacity as it moves
+            // animate hiding the current fieldset
+            current_fs.animate({opacity: 0}, {
+                step: function(now, mx) {
+                    scale = 1 - (1 - now) * 0.2; // scale down current_fs to 80% 
+                    left = (now * 50)+'%'; // next_fx slides from the right
+                    opacity = 1 - now; // increase next_fs opacity as it moves
 
-                current_fs.css({
-                    'transform': 'scale('+scale+')',
-                    'position': 'absolute'
-                });
-                next_fs.css({'left': left, 'opacity': opacity});
-            },
-            duration: 800,
-            complete: function() {
-                console.log("yz");
-                current_fs.hide();
-                animating = false;
-            },
-            easing: 'easeInOutBack'
-        });
+                    current_fs.css({
+                        'transform': 'scale('+scale+')',
+                        'position': 'absolute'
+                    });
+                    next_fs.css({'left': left, 'opacity': opacity});
+                },
+                duration: 800,
+                complete: function() {
+                    console.log("yz");
+                    current_fs.hide();
+                    animating = false;
+                },
+                easing: 'easeInOutBack'
+            });
+        } else {
+            setNextAction();
+        }
     });
+}
 
+function setPrevButton () {
+    let current_fs, previous_fs; //fieldsets
+    let left, opacity, scale; //fieldset properties which we will animate
+    let animating; //flag to prevent quick multi-click glitches
     $(".previous").click(function(){
         if(animating) return false;
         animating = true;
@@ -170,5 +163,32 @@ $(document).ready(function () {
             'postion': 'relative'
         });
     });
+}
+
+$(document).ready(function () {
+    let input = $('.validate-input .input');
+
+    checkEmptyInput(); // sets input classes based on whether an input is empty
+
+    // formSubmit
+    $('.validate-form').on('submit', function () {
+        // check if reciept no is valid
+        if (valid) {
+            /* insert code here */
+        } else {
+            /* insert code here */
+        }
+    });
+
+    /* Hides all validation alerts when document is loaded */
+    $('.validate-form .input').each(function() {
+        $(this).focus(function(){
+           hideValidate(this);
+        });
+    });
+
+    /* Set actions of buttons */
+    setNextAction();
+    setPrevButton();
 
 });
