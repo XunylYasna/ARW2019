@@ -20,6 +20,7 @@ function checkEmptyInput () {
     });
 }
 
+/* Check if inputs from fieldset are valid */
 function validFieldSet (input) {
     console.log("VALIDATE FORM");
     let check = true;
@@ -43,6 +44,7 @@ function validate (input) {
     if ($(input).val().trim() == '')  // if input is empty
         return false;
 
+    /* Validates based on the input name */
     switch ($(input).attr('name')) {
         case 'id_number': // invalid if string is not numerical or 8 digits
             if (isNaN($(input).val()) || $(input).val().length != 8) valid = false;
@@ -51,7 +53,8 @@ function validate (input) {
             // invalid if string is not alphabetical
             break;
         case 'reciept_number': 
-            // invalid if does not match reciept format
+            // invalid if not numerical
+            if (isNaN($(input).val())) valid = false;
             break;
         case 'dlsu_mail': 
             // invalid if string does not end in @dlsu.edu.ph
@@ -71,7 +74,7 @@ function hideValidate(input) {
     $(thisAlert).removeClass('alert-validate');
 }
 
-function setNextAction() {
+function setNextEvent() {
     let current_fs, next_fs; //fieldsets
     let left, opacity, scale; //fieldset properties which we will animate
     let animating; //flag to prevent quick multi-click glitches
@@ -83,9 +86,7 @@ function setNextAction() {
         current_fs = $(this).parent(); // gets parent fieldset
         console.log(current_fs);
         next_fs = $(this).parent().next(); // gets fieldset after the parent fieldset
-        
-        // insert code for validation
-        
+                
         let children = current_fs.find('input,textarea');
 
         console.log(children);
@@ -121,12 +122,12 @@ function setNextAction() {
                 easing: 'easeInOutBack'
             });
         } else {
-            setNextAction();
+            setNextEvent();
         }
     });
 }
 
-function setPrevButton () {
+function setPrevEvent () {
     let current_fs, previous_fs; //fieldsets
     let left, opacity, scale; //fieldset properties which we will animate
     let animating; //flag to prevent quick multi-click glitches
@@ -165,20 +166,23 @@ function setPrevButton () {
     });
 }
 
-$(document).ready(function () {
-    let input = $('.validate-input .input');
-
-    checkEmptyInput(); // sets input classes based on whether an input is empty
-
-    // formSubmit
-    $('.validate-form').on('submit', function () {
+function setSubmitEvent () {
+    $('.validate-form').submit(function (e) {
+        e.preventDefault(); // prevent actual submitting
         // check if reciept no is valid
+        let form = $(this);
+        let current_fs= form.parent();
+        let children = current_fs.find('input,textarea'); 
+        let valid = validFieldSet(children);
+
         if (valid) {
-            /* insert code here */
-        } else {
-            /* insert code here */
+            /* insert ajax submit code here */
         }
     });
+}
+
+$(document).ready(function () {
+    checkEmptyInput(); // sets input classes based on whether an input is empty
 
     /* Hides all validation alerts when document is loaded */
     $('.validate-form .input').each(function() {
@@ -187,8 +191,9 @@ $(document).ready(function () {
         });
     });
 
-    /* Set actions of buttons */
-    setNextAction();
-    setPrevButton();
+    /* Set button actions */
+    setNextEvent();
+    setPrevEvent();
+    setSubmitEvent();
 
 });
