@@ -35,16 +35,24 @@ function validFieldSet (input) {
 
 function validate (input) {
     console.log('validate(' + input + ')');
-    if($(input).attr('type') == 'email' || $(input).attr('name') == 'email') {
-        if($(input).val().trim().match(/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{1,5}|[0-9]{1,3})(\]?)$/) == null) {
-            return false;
-        }
+    let valid = true;
+
+    if ($(input).val().trim() == '')  // if input is empty
+        return false;
+
+    switch ($(input).attr('name')) {
+        case 'id_number': // invalid if string is not numerical or 8 digits
+            if (isNaN($(input).val()) || $(input).val().length != 8) valid = false;
+            break;
+        case 'first_name' || 'middle_name' || 'last_name': 
+            // invalid if string is not alphabetical
+            break;
+        case 'dlsu_mail': 
+            // invalid if string does not end in @dlsu.edu.ph
+            break;
     }
-    else {
-        if($(input).val().trim() == ''){
-            return false;
-        }
-    }
+    
+    return valid;
 }
 
 function showValidate(input) {
