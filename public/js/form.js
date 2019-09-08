@@ -1,4 +1,4 @@
-
+/* Script for register.hbs */
 /* Checks if input fields are empty */
 function checkEmptyInput () {
     console.log("checkEmptyInput ()");
@@ -39,28 +39,37 @@ function validFieldSet (input) {
 
 function validate (input) {
     console.log('validate(' + input + ')');
-    let valid = true;
+    let value = $(input).val().trim();
 
-    if ($(input).val().trim() == '')  // if input is empty
+    if (value == '')  // if input is empty
         return false;
 
     /* Validates based on the input name */
     switch ($(input).attr('name')) {
         case 'id_number': // invalid if string is not numerical or 8 digits
-            if (isNaN($(input).val()) || $(input).val().length != 8) valid = false;
+            if (isNaN(value) || value.length != 8) return false;
             break;
-        case 'first_name' || 'middle_name' || 'last_name': 
-            // invalid if string is not alphabetical
+        case 'contact_number':
+            if (isNaN(value) || value.length > 11 || value.length < 10) return false;
+            break;
+        case 'facebook_name':
+            // invalid if words are not alphanumerical
+            if (value.match(/^([0-9a-zA-Z.\-][ ]?)+$/) === null) return false;
+            break;
+        case 'first_name': case 'middle_name': case 'last_name': 
+            // invalid if words are not alphabetical
+            if (value.match(/^([a-zA-Z.\-][ ]?)+$/) === null) return false;
             break;
         case 'reciept_number': 
             // invalid if not numerical
-            if (isNaN($(input).val())) valid = false;
+            if (isNaN(value)) valid = false;
             break;
         case 'dlsu_mail': 
             // invalid if string does not end in @dlsu.edu.ph
+            if (value.match(/^([a-zA-Z._\-][ ]?)+@dlsu.edu.ph$/) === null) return false;
             break;
     }
-    return valid;
+    return true;
 }
 
 function showValidate(input) {
