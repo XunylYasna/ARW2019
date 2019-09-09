@@ -83,15 +83,57 @@ button.button {
 
   /* End Welcome */
 
+  
   /* Registrattion */
-  div#register {
-    width: 500px;
-  }
 
-.container {
-  background-color: rgba(255, 255, 255, 0.815);
-  box-shadow: 0.5px 5px 8px 0px rgba(0,0,0,0.1);
-  padding: 20px;
+#register h4 {
+  text-align: center;
+  color: var(--light-blue);
+  font-weight: bold;
+  font-family: "Raleway";
+  margin-top: 20px;
+}
+
+.inactive {
+  background: var(--light-gray); 
+}
+
+.action-button, .action-button-previous {
+  width: 100px;
+  font-weight: bold;
+  color: white;
+  border: 0 none;
+  border-radius: 25px;
+  cursor: pointer;
+  padding: 10px 5px;
+  outline: none;
+}
+
+.action-button {
+  background: var(--blue);
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+}
+
+.action-button-previous {
+  background: var(--yellow);
+  position: absolute;
+  bottom: 30px;
+}
+
+.action-button:hover, .action-button:focus {
+  transition: all .25s linear;
+  box-shadow: 0 0 0 2px white, 0px 4px 15px 0px var(--light-blue);
+}
+
+.action-button-previous:hover, .action-button-previous:focus {
+  transition: all .25s linear;
+  box-shadow: 0 0 0 2px white, 0px 4px 15px 0px var(--yellow);
+}
+
+.action-button-previous:active, .action-button:active {
+  box-shadow: 0 0 0 2px white;
 }
 
 .wrap-input {
@@ -102,6 +144,7 @@ button.button {
 
 .input {
   border: none;
+  outline: none;
   font-family: "Lato";
   font-size: 18px;
   color: #555555;
@@ -166,16 +209,21 @@ button.button {
 }
 
 .input:focus + .focus-input::after {
-  top: -20px;
+  top: -15px;
   font-size: 15px;
+  color: var(--light-blue);
 }
 
 .input:focus + .focus-input::before {
   width: 100%;
 }
 
-.m-b-32 {
-  margin-bottom: 32px;
+.m-b {
+  margin-bottom: 34px;
+}
+
+.m-t {
+  margin-top: 20px;
 }
 
 .m-b-60 {
@@ -183,7 +231,7 @@ button.button {
 }
 
 .not-empty.input + .focus-input::after {
-  top: -20px;
+  top: -12px;
   font-size: 15px;
 }
 
@@ -196,26 +244,24 @@ button.button {
   position: absolute;
   max-width: 70%;
   background-color: #fff;
-  border: 1px solid #c80000;
+  /* border: 1px solid var(--red); */
   border-radius: 2px;
-  padding: 4px 25px 4px 10px;
-  top: 50%;
+  padding: 4px 25px 4px 18px;
+  top: 130%;
   -webkit-transform: translateY(-50%);
   -moz-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   -o-transform: translateY(-50%);
   transform: translateY(-50%);
-  right: 0px;
+  left: 0px;
   pointer-events: none;
-
-  color: #c80000;
+  font-family: "Lato";
+  color: var(--red);
   font-size: 13px;
   line-height: 1.4;
   text-align: left;
-
   visibility: hidden;
   opacity: 0;
-
   -webkit-transition: opacity 0.4s;
   -o-transition: opacity 0.4s;
   -moz-transition: opacity 0.4s;
@@ -223,20 +269,19 @@ button.button {
 }
 
 .alert-validate::after {
-  content: "!";
+  content: "*";
   font-size: 16px;
-  color: #c80000;
-
+  color: var(--red);
   display: block;
   position: absolute;
   background-color: #fff;
-  top: 50%;
+  top: 130%;
   -webkit-transform: translateY(-50%);
   -moz-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   -o-transform: translateY(-50%);
   transform: translateY(-50%);
-  right: 5px;
+  left: 5px;
 }
 
 .alert-validate:hover:before {
@@ -250,8 +295,134 @@ button.button {
     opacity: 1;
   }
 }
-  .m-b-60 {
-    margin-bottom: 60px;
-  }
+
+.m-b-60 {
+  margin-bottom: 60px;
+}
+
+.inline {
+  display: inline-flex;
+}
+
+.inline div {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.inline div:first-child {
+  margin-left: 0px;
+  margin-right: 5px;
+}
+
+.inline div:last-child {
+  margin-left: 5px;
+  margin-right: 0px;
+}
+
+/* Registration Radio Buttons*/
+
+.radio-btn-container {
+  display: block;
+  position: relative;
+  margin: 10px auto;
+  height: auto;
+  width: auto;
+}
+
+.radio-btn-container :not(h4) {
+  padding: 0px 20px;
+}
+
+.radio-btn-container div {
+  clear: both;
+  overflow: hidden;
+}
+
+.radio-btn-container label {
+  width: 100%;
+  border-radius: 3px;
+  border: 1px solid #D1D3D4;
+  font-weight: normal;
+}
+
+.radio-btn-container input[type="radio"]:empty {
+  display: none;
+}
+
+.radio-btn-container input[type="radio"]:empty ~ label {
+  position: relative;
+  line-height: 2.5em;
+  text-indent: 3.25em;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.radio-btn-container input[type="radio"]:empty ~ label:before {
+  position: absolute;
+  display: block;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  content: '';
+  width: 2.5em;
+  background: #D1D3D4;
+}
+
+.radio-btn-container input[type="radio"]:hover:not(:checked) ~ label {
+  color: #888;
+  border: 1px solid #44a8eb91;
+}
+
+.radio-btn-container input[type="radio"]:hover:not(:checked) ~ label:before {
+  content: '\2714';
+  text-indent: .9em;
+  color: #fff;
+  background-color: #44a8eb91;
+}
+
+.radio-btn-container input[type="radio"]:checked ~ label {
+  color: var(--light-blue);
+  border: 1px solid var(--light-blue);
+}
+
+.radio-btn-container input[type="radio"]:checked ~ label:before{
+  content: '\2714';
+  text-indent: .9em;
+  color: var(--light-blue);
+  background-color: #ccc;
+}
+
+.radio-btn-container input[type="radio"]:focus ~ label:before {
+  box-shadow: 0 0 0 3px #777;
+}
+
+.radio-btn input[type="radio"]:checked ~ label:before{
+  color: rgb(255, 255, 255);
+  background-color: var(--light-blue);
+}
+
+/*Fieldsets*/
+
+.register-set {
+  background: rgba(255, 255, 255, 0.89);
+  border: 0 none;
+  border-radius: 0px;
+  box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+  padding: 20px 30px;
+  box-sizing: border-box;
+  width: 520px;
+  height: 460px;
+  margin: auto;
+
+  /*stacking fieldsets above each other*/
+  position: relative;
+}
+
+#register fieldset:not(:first-of-type) {
+  display: none;
+}
 
   /* End registration */
