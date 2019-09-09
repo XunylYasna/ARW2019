@@ -17,88 +17,69 @@
   font-family: "Lato"
 }
 
+body
+{
+    position: fixed; 
+    overflow-y: scroll;
+    width: 100%;
+    overflow:hidden;
+}
 
 
-  /* Welcome */
+
 #particles {
-  position: relative;
-  height: 100vh;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 0;
 }
 
 #particles .content {
-  top: 10%;
   margin-left: 50vw;
   transform: translateX(-50%);
   position: absolute;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  min-width: 80%;
+  min-height: 90%;
+  min-width: 90%;
+  /* background-color:red; */
 }
 
+  /* Welcome */
 
-.about {
-  min-height: 355px;
-  padding-top: 35px;
-  background-color: #025187;
-  width: 100%;
+
+.welcome-div{
+  min-height: 500px;
+  min-width: 90%;
+  /* background-color: #025187; */
 }
 
-.about header {
-  display: block;
+.welcome-text1{
+  font-size: 75px;
 }
 
-.about header span {
+.welcome-text2{
+
+}
+
+.lscs_yellow.button {
+  background: #fbd11f !important;
+  color: #545454 !important;
+}
+
+.lscs_yellow.button:hover {
+  background: #fdea9b !important;
+}
+
+button.button {
   font-family: "Raleway", sans-serif;
-  text-align: center;
-  display: block;
-  
-}
-
-.about header span:first-child {
-  text-transform: uppercase;
+  letter-spacing: 1px;
   font-size: 32px;
-  color: #FCDB51;
+  padding: 8px;
+  border-radius: 12px;
 }
-
-.about header span:last-child {
-  /* margin-top: -25px; */
-  font-size: 16px;
-  color: #ffffff;
-  font-weight: bold;
-}
-
-.about>p {
-  font-family: "Open Sans", sans-serif;
-  text-align: center;
-  color: #ffffff;
-  padding: 25px 80px;
-  font-size: 18px;
-}
-
-.about>p .about-link {
-  display: inline-block;
-  font-family: "Raleway";
-  font-size: 16px;
-  font-weight: 500;
-  padding: 7px 0;
-  min-width: 200px;
-  color: #545454;
-  background-color: #FCDB51;
-
-  min-width: 130px;
-  text-align: center;
-  text-decoration: none !important;
-  transition: all 175ms ease-out;
-  border-radius: 4px;
-}
-
-.about>p .about-link:hover {
-  background-color: #dbbd44;
-}
-
 
   /* End Welcome */
 

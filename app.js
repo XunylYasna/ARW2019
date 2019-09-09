@@ -73,6 +73,9 @@ app.use(express.static(__dirname + '/public'));
 app.use('/register', require('./routes/registration'))
 app.use('/dashboard',require('./routes/dashboard'))
 
+app.get('/s', (req,res) =>{
+  res.render('scratch')
+})
 
 app.get('/', (req,res) =>{
   res.render('welcome')
