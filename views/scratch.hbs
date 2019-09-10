@@ -65,22 +65,17 @@
     <div class="content">
         <div class="welcome-div row">
             <div class="col center-block my-auto">
-            {{!-- <h1>
-            LSCS Annual Recruitment Week 2019
-            </h1>
-
-            <h2>
-                October 7 - October 10
-            </h2> --}}
-
-            
-            <h1 class="typewrite welcome-text1" data-period="2000" data-type='["Annual Recruitment Week 2019", "Join LSCS!" ]'>
+        
+            <div class="ftext">
+                <h1 class="typewrite welcome-text1" data-period="2000" data-type='["Annual Recruitment Week 2019", "Join La Salle Computer Society!" ]'>
                 <span class="wrap"></span>
             </h1>
+            </div>
+            
             <h2 class="welcome-text2">
                 October 7 - October 10
             </h2>
-            <button class="lscs_yellow button"> Register Now!</button>
+            <button class="lscs_yellow button" data-toggle="modal" data-target="#regModal"> Register Now!</button>
         </div>
 
         <div class="col text-center my-auto">
@@ -94,6 +89,59 @@
 
 </div>
 
+
+<!-- Modal 1 -->
+<div class="modal fade" id="regModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Registration Type</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+            <div class="row d-flex justify-content-center">
+                <div class="col-sm d-flex justify-content-center">
+                    <button class="rtype" data-dismiss="modal" data-toggle="modal" data-target="#regModal2">Old Member</button>
+                </div>
+                <div class="col-sm d-flex justify-content-center">
+                    <button class="rtype" data-dismiss="modal" data-toggle="modal" data-target="#regModal2">New Member</button>
+                </div>
+                <div class="col-sm d-flex justify-content-center">
+                    <button class="rtype" data-toggle="modal" data-target="#regModal">Honorary</button>
+                </div>
+                <p>Envelope icon: <span class="glyphicon glyphicon-envelope"></span></p>
+            </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal 2 -->
+<div class="modal fade" id="regModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Registration Type</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+            <div class="row d-flex justify-content-center">
+                <div class="col-sm d-flex justify-content-center">
+                    <button class="rtype">Groups of 5</button>
+                </div>
+                <div class="col-sm d-flex justify-content-center">
+                    <button class="rtype"><span class="glyphicon glyphicon-user"></span>Solo</button>
+                </div>
+            </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 

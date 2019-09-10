@@ -56,6 +56,10 @@ body
   /* background-color: #025187; */
 }
 
+.ftext{
+  min-height: 180px;
+}
+
 .welcome-text1{
   font-size: 75px;
 }
@@ -71,6 +75,7 @@ body
 
 .lscs_yellow.button:hover {
   background: #fdea9b !important;
+  text-decoration: none;
 }
 
 button.button {
@@ -81,6 +86,22 @@ button.button {
   border-radius: 12px;
 }
 
+button.rtype{
+  min-width: 125px !important; 
+  max-width: 100px !important; 
+  min-height: 125px !important;
+  max-height: 100px !important;
+  background: var(--blue);
+  color: white;
+  border: 0 none;
+  border-radius: 3px;
+  margin: 5px;
+}
+
+.rtype:hover, .rtype:focus {
+  transition: all .25s linear;
+  box-shadow: 0 0 0 2px white, 0px 4px 15px 0px var(--light-blue);
+}
   /* End Welcome */
 
   
