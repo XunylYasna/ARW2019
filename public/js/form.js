@@ -183,6 +183,14 @@ function setSubmitEvent () {
         let current_fs= form.parent();
         let children = current_fs.find('input,textarea'); 
         let valid = validFieldSet(children);
+        let memberType = document.getElementById('memberType');
+
+        // set hidden submit value
+        if(document.getElementById('officer-radio').checked) {
+            memberType.value = document.getElementById('officerType').value;
+        } else if(document.getElementById('member-radio').checked) {
+            memberType.val = 'Member';
+        }
 
         if (valid) {
             /* insert ajax submit code here */
