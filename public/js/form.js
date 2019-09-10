@@ -1,4 +1,7 @@
 /* Script for register.hbs */
+/* Global Variables */
+let currentURL, currentPathname, pageNum, type;
+
 /* Checks if input fields are empty */
 function checkEmptyInput () {
     console.log("checkEmptyInput ()");
@@ -218,6 +221,35 @@ function setInputLeaveEvent () {
 }
 
 $(document).ready(function () {
+    currentURL = window.location.href;
+    currentPathname = window.location.pathname;
+    console.log('LOCATION');
+    console.log(currentURL);
+    console.log(currentPathname);
+    let str = currentPathname.split('register/').pop();
+
+    if (str === 'old') {
+        type = 'old';
+    } else if (str === 'new') {
+        type = 'new';
+    } else if (str === 'honorary') {
+        type = 'honorary';
+    } else if (str !== ''){
+        let strArr = str.split('/');
+        pageNum = parseInt(strArr.pop(), 10);
+
+        if (strArr.pop() === 'old') 
+            type = 'oldGroup'
+        else
+            type = 'newGroup'
+    } else {
+        type = 'new';
+    }
+
+    console.log(type);
+    if (pageNum !== undefined)
+        console.log(pageNum);
+
     checkEmptyInput(); // sets input classes based on whether an input is empty
 
     /* Hides all validation alerts when document is loaded */
