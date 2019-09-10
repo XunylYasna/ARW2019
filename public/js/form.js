@@ -38,7 +38,7 @@ function validFieldSet (input) {
 }
 
 function validate (input) {
-    console.log('validate(' + input + ')');
+    console.log('validate(' + $(input).attr('name') + ')');
     let value = $(input).val().trim();
 
     if (value == '')  // if input is empty
@@ -87,7 +87,7 @@ function setNextEvent() {
     let current_fs, next_fs; //fieldsets
     let left, opacity, scale; //fieldset properties which we will animate
     let animating; //flag to prevent quick multi-click glitches
-
+    let valid;
     $('.next').click(function() {
         if (animating) return false; // prevents multi-clicking
         animating = true;
@@ -99,7 +99,10 @@ function setNextEvent() {
         let children = current_fs.find('input,textarea');
 
         console.log(children);
-        let valid = validFieldSet(children);
+        if (current_fs.attr('id') === 'membership_fs')
+            valid = true;
+        else 
+            valid = validFieldSet(children);
         console.log(valid);
 
         // will only transition if all inputs are valid
