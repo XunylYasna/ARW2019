@@ -84,7 +84,35 @@ button.button {
   /* End Welcome */
 
   
-  /* Registrattion */
+/* Registration */
+
+body.registration {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  position: fixed;
+}
+
+/*end reset*/
+
+#particles.registration {
+  position: relative;
+  height: 100vh;
+}
+  
+#particles.registration .content {
+  top: 10%;
+  margin-left: 50vw;
+  transform: translateX(-50%);
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 80%;
+}
 
 #register h4 {
   text-align: center;
@@ -320,6 +348,7 @@ button.button {
 }
 
 /* Registration Radio Buttons*/
+
 
 .radio-btn-container {
   display: block;
