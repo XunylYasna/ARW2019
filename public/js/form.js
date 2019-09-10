@@ -49,26 +49,22 @@ function validate (input) {
 
     /* Validates based on the input name */
     switch ($(input).attr('name')) {
-        case 'id_number': // invalid if string is not numerical or 8 digits
+        case 'id_number': 
             if (isNaN(value) || value.length != 8) return false;
             break;
         case 'contact_number':
             if (isNaN(value) || value.length > 11 || value.length < 10) return false;
             break;
         case 'facebook_name':
-            // invalid if words are not alphanumerical
             if (value.match(/^([0-9a-zA-Z.\-][ ]?)+$/) === null) return false;
             break;
         case 'first_name': case 'middle_name': case 'last_name': 
-            // invalid if words are not alphabetical
             if (value.match(/^([a-zA-Z.\-][ ]?)+$/) === null) return false;
             break;
-        case 'reciept_number': 
-            // invalid if not numerical
-            if (isNaN(value)) valid = false;
+        case 'receipt_number': 
+            if (isNaN(value) || value.length != 5) valid = false;
             break;
         case 'dlsu_mail': 
-            // invalid if string does not end in @dlsu.edu.ph
             if (value.match(/^([0-9a-zA-Z._\-][ ]?)+@dlsu.edu.ph$/) === null) return false;
             break;
     }
@@ -182,24 +178,75 @@ function setPrevEvent () {
 }
 
 function setSubmitEvent () {
+    let id_number = document.getElementsByName('id_number')[0];
+    let first_name = document.getElementsByName('first_name')[0];
+    let middle_name = document.getElementsByName('middle_name')[0];
+    let last_name = document.getElementsByName('last_name')[0];
+    let dlsu_mail = document.getElementsByName('dlsu_mail')[0];
+    let contact_number = document.getElementsByName('contact_number')[0];
+    let facebook_name = document.getElementsByName('facebook_name')[0];
+    let receipt_number = document.getElementsByName('receipt_number')[0];
+
+    let course = document.getElementById('course');
+    let member_type = document.getElementById('member_type');
+    
     $('.validate-form').submit(function (e) {
-        e.preventDefault(); // prevent actual submitting
-        // check if reciept no is valid
-        let form = $(this);
-        let current_fs= form.parent();
-        let children = current_fs.find('input,textarea'); 
+        e.preventDefault(); // prevent actual submitting        
+        let children = $('#receipt_fs').find('input,textarea'); 
         let valid = validFieldSet(children);
-        let memberType = document.getElementById('memberType');
 
         // set hidden submit value
         if(document.getElementById('officer-radio').checked) {
-            memberType.value = document.getElementById('officerType').value;
+            member_type.value = document.getElementById('officer-pos').value;
         } else if(document.getElementById('member-radio').checked) {
-            memberType.val = 'Member';
+            member_type.val = 'Member';
         }
 
         if (valid) {
+            
+            console.log();
+            console.log();
+            console.log('AJAX');
+            let url = currentURL.split(currentPathname)[0] + '/register/process';
+            console.log(url);
+
             /* insert ajax submit code here */
+            $.ajax({
+                url: url,
+                method: "POST",
+                data: {
+                    id_number: id_number.value,
+                    first_name: first_name.value,
+                    middle_name: middle_name.value,
+                    last_name: last_name.value,
+                    dlsu_mail: dlsu_mail.value,
+                    contact_number: contact_number.value,
+                    facebook_name: facebook_name.value,
+                    receipt_number: receipt_number.value,
+                    course: course.value,
+                    member_type: member_type.value
+                },
+                success: function(result){
+                    console.log("SUCCESS BOIS");
+                    console.log(result);
+                    
+                    /* Insert url conditions */                    
+                    if (type === 'honorary' || type === 'old' || type === 'new' || pageNum === 4) {
+                        /* Insert thank you screen */
+                    } else {
+                        /* Increment page */
+                        pageNum++;
+                        let insert;
+                        if (type === 'oldGroup') 
+                            insert = 'old';
+                        else
+                            insert = 'new';
+                        let newUrl = currentURL.split(currentPathname)[0] + '/register/' + insert + '/' + pageNum;
+                        window.history.pushState("new", document.getElementsByTagName("title")[0].innerHTML, "../../register/" + insert +"/" + pageNum);
+                        console.log(newUrl);
+                    }
+                }
+            });
         }
     });
 }
