@@ -335,6 +335,25 @@ function setInputLeaveEvent () {
 	});
 }
 
+function setOfficerRadioEvent () {
+    let cntr = document.getElementById('officer-pos-ctnr');
+    let officer = document.getElementById('officer-radio');
+    let member =  document.getElementById('member-radio');
+
+    let presetRadio = "false";
+    $("[name=is_officer]").filter("[value='"+presetRadio+"']").prop("checked", true);
+
+    officer.onclick = () => {
+        if (cntr.style.display = 'none')
+            cntr.style.display = 'block';
+    };
+
+    member.onclick = () => {
+        if (cntr.style.display = 'block')
+            cntr.style.display = 'none';
+    };
+}
+
 $(document).ready(function () {
     currentURL = window.location.href;
     currentPathname = window.location.pathname;
@@ -379,5 +398,6 @@ $(document).ready(function () {
     setPrevEvent();
     setSubmitEvent();
     setInputLeaveEvent();
+    setOfficerRadioEvent();
 
 });
