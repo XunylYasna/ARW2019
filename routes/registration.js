@@ -16,18 +16,29 @@ router.get(['/', '/honorary', '/old', '/new','/old/1', '/old/2', '/old/3', '/old
     res.render('register')
 );
 
-router.post('/process', urlencoder, function(req, res){
+router.post('/process', urlencoder, (req, res) => {
     console.log('/process');
-    let idNum = req.body.id_number;
-    let firstName = req.body.first_name;
-    let middleName = req.body.middle_name;
-    let lastName = req.body.last_name;
-    let email = req.body.dlsu_mail;
-    let course = req.body.course;
-    let contactNum = req.body.contact_number;
-    let facebookName = req.body.facebook_name;
-    let memberType = req.body.memberType;
-    let receiptNum = req.body.receipt_number;
+    let member = {
+        idNum: req.body.id_number, 
+        firstName: req.body.first_name, 
+        middleName: req.body.middle_name, 
+        lastName: req.body.last_name, 
+        email: req.body.dlsu_mail, 
+        course: req.body.course, 
+        contactNum: req.body.contact_number, 
+        fbName: req.body.facebook_name, 
+        memberType: req.body.member_type, 
+        receiptNum: req.body.receipt_number 
+    }
+
+    Member.create(member).then((member)=>{
+        console.log("successful member logging " + member)
+        console.log('Name: ' + member.firstName);
+        res.send(member);
+    }, (error)=>{
+        console.log('ERROR ERROR');
+        console.log(error);
+    })
 });
 
 

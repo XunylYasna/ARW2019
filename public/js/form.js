@@ -199,7 +199,7 @@ function setSubmitEvent () {
         if(document.getElementById('officer-radio').checked) {
             member_type.value = document.getElementById('officer-pos').value;
         } else if(document.getElementById('member-radio').checked) {
-            member_type.val = 'Member';
+            member_type.value = 'Member';
         }
 
         if (valid) {
