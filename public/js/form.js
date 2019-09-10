@@ -92,7 +92,6 @@ function setNextEvent() {
         animating = true;
 
         current_fs = $(this).parent(); // gets parent fieldset
-        console.log(current_fs);
         next_fs = $(this).parent().next(); // gets fieldset after the parent fieldset
                 
         let children = current_fs.find('input,textarea');
@@ -177,6 +176,73 @@ function setPrevEvent () {
     });
 }
 
+function animateReset () {
+    let left, opacity, scale; //fieldset properties which we will animate
+    let current_fs = $('#receipt_fs');
+    let next_fs = $('#personal_fs');
+            
+    // insert code for progress bar (not done)
+
+    next_fs.show();
+
+    // animate hiding the current fieldset
+    current_fs.animate({opacity: 0}, {
+        step: function(now, mx) {
+            scale = 1 - (1 - now) * 0.2; // scale down current_fs to 80% 
+            left = (now * 50)+'%'; // next_fx slides from the right
+            opacity = 1 - now; // increase next_fs opacity as it moves
+
+            current_fs.css({
+                'transform': 'scale('+scale+')',
+                'position': 'absolute'
+            });
+            next_fs.css({'left': left, 'opacity': opacity, 'transform': 'scale(1)'});
+        },
+        duration: 800,
+        complete: function() {
+            console.log("yz");
+            current_fs.hide();
+            animating = false;
+        },
+        easing: 'easeInOutBack'
+    });
+}
+
+function resetForm () {
+    let id_number = document.getElementsByName('id_number')[0];
+    let first_name = document.getElementsByName('first_name')[0];
+    let middle_name = document.getElementsByName('middle_name')[0];
+    let last_name = document.getElementsByName('last_name')[0];
+    let dlsu_mail = document.getElementsByName('dlsu_mail')[0];
+    let contact_number = document.getElementsByName('contact_number')[0];
+    let facebook_name = document.getElementsByName('facebook_name')[0];
+    let receipt_number = document.getElementsByName('receipt_number')[0];
+
+    id_number.value = '';
+    first_name.value = '';
+    middle_name.value = '';
+    last_name.value = '';
+    dlsu_mail.value = '';
+    contact_number.value = '';
+    facebook_name.value = '';
+    receipt_number.value = '';
+
+    let presetRadio = "false";
+    $("[name=is_officer]").filter("[value='"+presetRadio+"']").prop("checked", true);
+
+    let officerOptions = document.querySelectorAll('#officer-pos option');
+    for (let i = 0, l = officerOptions.length; i < l; i++) {
+        officerOptions[i].selected = officerOptions[i].defaultSelected;
+    }
+
+    let courseOptions = document.querySelectorAll('#course option');
+    for (let i = 0, l = courseOptions.length; i < l; i++) {
+        courseOptions[i].selected = courseOptions[i].defaultSelected;
+    }
+
+    checkEmptyInput();
+}
+
 function setSubmitEvent () {
     let id_number = document.getElementsByName('id_number')[0];
     let first_name = document.getElementsByName('first_name')[0];
@@ -244,6 +310,8 @@ function setSubmitEvent () {
                         let newUrl = currentURL.split(currentPathname)[0] + '/register/' + insert + '/' + pageNum;
                         window.history.pushState("new", document.getElementsByTagName("title")[0].innerHTML, "../../register/" + insert +"/" + pageNum);
                         console.log(newUrl);
+                        animateReset();
+                        resetForm();
                     }
                 }
             });
