@@ -1,4 +1,7 @@
 /* Script for register.hbs */
+/* Global Variables */
+let currentURL, currentPathname, pageNum, type;
+
 /* Checks if input fields are empty */
 function checkEmptyInput () {
     console.log("checkEmptyInput ()");
@@ -46,26 +49,22 @@ function validate (input) {
 
     /* Validates based on the input name */
     switch ($(input).attr('name')) {
-        case 'id_number': // invalid if string is not numerical or 8 digits
+        case 'id_number': 
             if (isNaN(value) || value.length != 8) return false;
             break;
         case 'contact_number':
             if (isNaN(value) || value.length > 11 || value.length < 10) return false;
             break;
         case 'facebook_name':
-            // invalid if words are not alphanumerical
             if (value.match(/^([0-9a-zA-Z.\-][ ]?)+$/) === null) return false;
             break;
         case 'first_name': case 'middle_name': case 'last_name': 
-            // invalid if words are not alphabetical
             if (value.match(/^([a-zA-Z.\-][ ]?)+$/) === null) return false;
             break;
-        case 'reciept_number': 
-            // invalid if not numerical
-            if (isNaN(value)) valid = false;
+        case 'receipt_number': 
+            if (isNaN(value) || value.length != 5) valid = false;
             break;
         case 'dlsu_mail': 
-            // invalid if string does not end in @dlsu.edu.ph
             if (value.match(/^([0-9a-zA-Z._\-][ ]?)+@dlsu.edu.ph$/) === null) return false;
             break;
     }
@@ -93,7 +92,6 @@ function setNextEvent() {
         animating = true;
 
         current_fs = $(this).parent(); // gets parent fieldset
-        console.log(current_fs);
         next_fs = $(this).parent().next(); // gets fieldset after the parent fieldset
                 
         let children = current_fs.find('input,textarea');
@@ -178,25 +176,145 @@ function setPrevEvent () {
     });
 }
 
+function animateReset () {
+    let left, opacity, scale; //fieldset properties which we will animate
+    let current_fs = $('#receipt_fs');
+    let next_fs = $('#personal_fs');
+            
+    // insert code for progress bar (not done)
+
+    next_fs.show();
+
+    // animate hiding the current fieldset
+    current_fs.animate({opacity: 0}, {
+        step: function(now, mx) {
+            scale = 1 - (1 - now) * 0.2; // scale down current_fs to 80% 
+            left = (now * 50)+'%'; // next_fx slides from the right
+            opacity = 1 - now; // increase next_fs opacity as it moves
+
+            current_fs.css({
+                'transform': 'scale('+scale+')',
+                'position': 'absolute'
+            });
+            next_fs.css({'left': left, 'opacity': opacity, 'transform': 'scale(1)'});
+        },
+        duration: 800,
+        complete: function() {
+            console.log("yz");
+            current_fs.hide();
+            animating = false;
+        },
+        easing: 'easeInOutBack'
+    });
+}
+
+function resetForm () {
+    let id_number = document.getElementsByName('id_number')[0];
+    let first_name = document.getElementsByName('first_name')[0];
+    let middle_name = document.getElementsByName('middle_name')[0];
+    let last_name = document.getElementsByName('last_name')[0];
+    let dlsu_mail = document.getElementsByName('dlsu_mail')[0];
+    let contact_number = document.getElementsByName('contact_number')[0];
+    let facebook_name = document.getElementsByName('facebook_name')[0];
+    let receipt_number = document.getElementsByName('receipt_number')[0];
+
+    id_number.value = '';
+    first_name.value = '';
+    middle_name.value = '';
+    last_name.value = '';
+    dlsu_mail.value = '';
+    contact_number.value = '';
+    facebook_name.value = '';
+    receipt_number.value = '';
+
+    let presetRadio = "false";
+    $("[name=is_officer]").filter("[value='"+presetRadio+"']").prop("checked", true);
+
+    let officerOptions = document.querySelectorAll('#officer-pos option');
+    for (let i = 0, l = officerOptions.length; i < l; i++) {
+        officerOptions[i].selected = officerOptions[i].defaultSelected;
+    }
+
+    let courseOptions = document.querySelectorAll('#course option');
+    for (let i = 0, l = courseOptions.length; i < l; i++) {
+        courseOptions[i].selected = courseOptions[i].defaultSelected;
+    }
+
+    checkEmptyInput();
+}
+
 function setSubmitEvent () {
+    let id_number = document.getElementsByName('id_number')[0];
+    let first_name = document.getElementsByName('first_name')[0];
+    let middle_name = document.getElementsByName('middle_name')[0];
+    let last_name = document.getElementsByName('last_name')[0];
+    let dlsu_mail = document.getElementsByName('dlsu_mail')[0];
+    let contact_number = document.getElementsByName('contact_number')[0];
+    let facebook_name = document.getElementsByName('facebook_name')[0];
+    let receipt_number = document.getElementsByName('receipt_number')[0];
+
+    let course = document.getElementById('course');
+    let member_type = document.getElementById('member_type');
+    
     $('.validate-form').submit(function (e) {
-        e.preventDefault(); // prevent actual submitting
-        // check if reciept no is valid
-        let form = $(this);
-        let current_fs= form.parent();
-        let children = current_fs.find('input,textarea'); 
+        e.preventDefault(); // prevent actual submitting        
+        let children = $('#receipt_fs').find('input,textarea'); 
         let valid = validFieldSet(children);
-        let memberType = document.getElementById('memberType');
 
         // set hidden submit value
         if(document.getElementById('officer-radio').checked) {
-            memberType.value = document.getElementById('officerType').value;
+            member_type.value = document.getElementById('officer-pos').value;
         } else if(document.getElementById('member-radio').checked) {
-            memberType.val = 'Member';
+            member_type.value = 'Member';
         }
 
         if (valid) {
+            
+            console.log();
+            console.log();
+            console.log('AJAX');
+            let url = currentURL.split(currentPathname)[0] + '/register/process';
+            console.log(url);
+
             /* insert ajax submit code here */
+            $.ajax({
+                url: url,
+                method: "POST",
+                data: {
+                    id_number: id_number.value,
+                    first_name: first_name.value,
+                    middle_name: middle_name.value,
+                    last_name: last_name.value,
+                    dlsu_mail: dlsu_mail.value,
+                    contact_number: contact_number.value,
+                    facebook_name: facebook_name.value,
+                    receipt_number: receipt_number.value,
+                    course: course.value,
+                    member_type: member_type.value
+                },
+                success: function(result){
+                    console.log("SUCCESS BOIS");
+                    console.log(result);
+                    
+                    /* Insert url conditions */                    
+                    if (type === 'honorary' || type === 'old' || type === 'new' || pageNum === 4) {
+                        /* Insert thank you screen */
+                    } else {
+                        /* Increment page */
+                        pageNum++;
+                        let insert;
+                        if (type === 'oldGroup') 
+                            insert = 'old';
+                        else
+                            insert = 'new';
+                        let newUrl = currentURL.split(currentPathname)[0] + '/register/' + insert + '/' + pageNum;
+                        window.history.pushState("new", document.getElementsByTagName("title")[0].innerHTML, "../../register/" + insert +"/" + pageNum);
+                        console.log(newUrl);
+                        animateReset();
+                        resetForm();
+                    }
+                }
+            });
         }
     });
 }
@@ -217,7 +335,55 @@ function setInputLeaveEvent () {
 	});
 }
 
+function setOfficerRadioEvent () {
+    let cntr = document.getElementById('officer-pos-ctnr');
+    let officer = document.getElementById('officer-radio');
+    let member =  document.getElementById('member-radio');
+
+    let presetRadio = "false";
+    $("[name=is_officer]").filter("[value='"+presetRadio+"']").prop("checked", true);
+
+    officer.onclick = () => {
+        if (cntr.style.display = 'none')
+            cntr.style.display = 'block';
+    };
+
+    member.onclick = () => {
+        if (cntr.style.display = 'block')
+            cntr.style.display = 'none';
+    };
+}
+
 $(document).ready(function () {
+    currentURL = window.location.href;
+    currentPathname = window.location.pathname;
+    console.log('LOCATION');
+    console.log(currentURL);
+    console.log(currentPathname);
+    let str = currentPathname.split('register/').pop();
+
+    if (str === 'old') {
+        type = 'old';
+    } else if (str === 'new') {
+        type = 'new';
+    } else if (str === 'honorary') {
+        type = 'honorary';
+    } else if (str !== ''){
+        let strArr = str.split('/');
+        pageNum = parseInt(strArr.pop(), 10);
+
+        if (strArr.pop() === 'old') 
+            type = 'oldGroup'
+        else
+            type = 'newGroup'
+    } else {
+        type = 'new';
+    }
+
+    console.log(type);
+    if (pageNum !== undefined)
+        console.log(pageNum);
+
     checkEmptyInput(); // sets input classes based on whether an input is empty
 
     /* Hides all validation alerts when document is loaded */
@@ -232,5 +398,6 @@ $(document).ready(function () {
     setPrevEvent();
     setSubmitEvent();
     setInputLeaveEvent();
+    setOfficerRadioEvent();
 
 });

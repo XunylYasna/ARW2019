@@ -349,6 +349,9 @@ body.registration {
 
 /* Registration Radio Buttons*/
 
+#officer-pos-ctnr {
+  display: none;
+}
 
 .radio-btn-container {
   display: block;

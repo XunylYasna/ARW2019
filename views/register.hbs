@@ -84,7 +84,7 @@
                         <label for="member-radio">a member of LSCS.</label>
                     </div>
                 </div>
-                <div class="officer-pos-ctnr m-b">
+                <div id = "officer-pos-ctnr" class="m-b">
                     <label for="officer-pos">Position</label>
                     <select id="officer-pos" class="form-control" name="officer_position" data-live-search="true">
                         <optgroup label="Internals">
@@ -124,25 +124,25 @@
                         </optgroup>
                     </select>
                 </div>
-                <input type="hidden" id="memberType" name="memberType">
+                <input type="hidden" id="member_type" name="member_type">
                 <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
                 <input type="button" name="next" class="next action-button" value="Next"/>
             </fieldset>
 
-            <fieldset id="reciept_fs" class="register-set">
+            <fieldset id="receipt_fs" class="register-set">
                 <h4 class = "brand title m-b"> 
                 Payment
                 </h4>
                 <p>
-                    Please pay the amount below to the nearest officer. After paying, enter the reciept
+                    Please pay the amount below to the nearest officer. After paying, enter the receipt
                     below and click submit to finish.
                 </p>
                 <h5 class="m-b">
                     Total: P 230 (Old Member)
                 </h5>
-                <div class="wrap-input validate-input m-b" data-validate="Required">
+                <div class="wrap-input validate-input m-b" data-validate="Number must be 5 digits">
                     <input class="input" type="text" name="receipt_number">
-                    <span class="focus-input" data-placeholder="Reciept Number"></span>
+                    <span class="focus-input" data-placeholder="receipt Number"></span>
                 </div>
                 <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
                 <input type="submit" name="submit" class="submit action-button" value="Submit"/>
