@@ -158,6 +158,16 @@ body.registration {
   outline: none;
 }
 
+a.action-button {
+  text-align: center;
+  color: white;
+}
+
+a.action-button:hover {
+  color: white;
+  text-decoration: none;
+}
+
 .action-button {
   background: var(--blue);
   position: absolute;
