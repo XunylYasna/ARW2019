@@ -1,4 +1,15 @@
 /* Script for welcome.hbs */
 /* Global Variables */
-let type;
+var reg = '';
 
+function set(regType){
+    reg = regType
+}
+
+
+
+function submit(num){
+    reg += num;
+    $('#regInput').val(reg)
+    $('#typeForm').submit();
+}

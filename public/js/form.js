@@ -1,6 +1,7 @@
 /* Script for register.hbs */
 /* Global Variables */
 let currentURL, currentPathname, pageNum, type;
+alert(rType) // Type of Registration
 
 /* Checks if input fields are empty */
 function checkEmptyInput () {
