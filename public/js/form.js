@@ -1,6 +1,6 @@
 /* Script for register.hbs */
 /* Global Variables */
-let currentURL, currentPathname, pageNum, type;
+let currentURL, mainURL, currentPathname, pageNum;
 alert(rType) // Type of Registration
 
 /* Checks if input fields are empty */
@@ -85,7 +85,6 @@ function hideValidate(input) {
 
 function setNextEvent() {
     let current_fs, next_fs; //fieldsets
-    let left, opacity, scale; //fieldset properties which we will animate
     let animating; //flag to prevent quick multi-click glitches
     let valid;
     $('.next').click(function() {
@@ -106,35 +105,37 @@ function setNextEvent() {
 
         // will only transition if all inputs are valid
         if (valid) {
-            // insert code for progress bar (not done)
-
-            // display next fieldset
-            next_fs.show();
-
-            // animate hiding the current fieldset
-            current_fs.animate({opacity: 0}, {
-                step: function(now, mx) {
-                    scale = 1 - (1 - now) * 0.2; // scale down current_fs to 80% 
-                    left = (now * 50)+'%'; // next_fx slides from the right
-                    opacity = 1 - now; // increase next_fs opacity as it moves
-
-                    current_fs.css({
-                        'transform': 'scale('+scale+')',
-                        'position': 'absolute'
-                    });
-                    next_fs.css({'left': left, 'opacity': opacity});
-                },
-                duration: 800,
-                complete: function() {
-                    console.log("yz");
-                    current_fs.hide();
-                    animating = false;
-                },
-                easing: 'easeInOutBack'
-            });
+            animating = nextScreenAnimation(current_fs, next_fs);
         } else {
             setNextEvent();
         }
+    });
+}
+
+function nextScreenAnimation(current_fs, next_fs) {
+    console.log('nextScreenAnimation')
+    next_fs.show();
+    let left, opacity, scale; //fieldset properties which we will animate
+    // animate hiding the current fieldset
+    current_fs.animate({opacity: 0}, {
+        step: function(now, mx) {
+            scale = 1 - (1 - now) * 0.2; // scale down current_fs to 80% 
+            left = (now * 50)+'%'; // next_fx slides from the right
+            opacity = 1 - now; // increase next_fs opacity as it moves
+
+            current_fs.css({
+                'transform': 'scale('+scale+')',
+                'position': 'absolute'
+            });
+            next_fs.css({'left': left, 'opacity': opacity});
+        },
+        duration: 800,
+        complete: function() {
+            console.log("yz");
+            current_fs.hide();
+            return false;
+        },
+        easing: 'easeInOutBack'
     });
 }
 
@@ -298,19 +299,12 @@ function setSubmitEvent () {
                     console.log(result);
                     
                     /* Insert url conditions */                    
-                    if (type === 'honorary' || type === 'old' || type === 'new' || pageNum === 4) {
+                    if (rType === 'Honorary' || rType === 'OldMemberSolo' || rType === 'NewMemberSolo' || pageNum === 4) {
                         /* Insert thank you screen */
+                        nextScreenAnimation($('#receipt_fs'), $('#done_fs'));
                     } else {
                         /* Increment page */
-                        pageNum++;
-                        let insert;
-                        if (type === 'oldGroup') 
-                            insert = 'old';
-                        else
-                            insert = 'new';
-                        let newUrl = currentURL.split(currentPathname)[0] + '/register/' + insert + '/' + pageNum;
-                        window.history.pushState("new", document.getElementsByTagName("title")[0].innerHTML, "../../register/" + insert +"/" + pageNum);
-                        console.log(newUrl);
+                        window.history.pushState(pageNum++, document.getElementsByTagName("title")[0].innerHTML, mainURL +"/" + pageNum);
                         animateReset();
                         resetForm();
                     }
@@ -358,32 +352,38 @@ function setOfficerRadioEvent () {
 $(document).ready(function () {
     currentURL = window.location.href;
     currentPathname = window.location.pathname;
+    console.log('rType = ' + rType);
     console.log('LOCATION');
     console.log(currentURL);
     console.log(currentPathname);
     let str = currentPathname.split('register/').pop();
 
-    if (str === 'old') {
+    if (rType === 'OldMemberSolo') {
         type = 'old';
-    } else if (str === 'new') {
+    } else if (rType === 'NewMemberSolo') {
         type = 'new';
-    } else if (str === 'honorary') {
+    } else if (rType === 'Honorary') {
         type = 'honorary';
-    } else if (str !== ''){
+    } else if (rType === 'OldMemberGroup'){
         let strArr = str.split('/');
         pageNum = parseInt(strArr.pop(), 10);
 
-        if (strArr.pop() === 'old') 
-            type = 'oldGroup'
-        else
-            type = 'newGroup'
+        if (isNaN(pageNum)) {
+            pageNum = 1;
+            history.replaceState(mainURL = currentURL, 
+                document.getElementsByTagName("title")[0].innerHTML, 
+                currentURL + "/" + pageNum);
+        } else {
+            history.replaceState(pageNum = pageNum, 
+                document.getElementsByTagName("title")[0].innerHTML, 
+                currentURL + "/" + pageNum);
+        }
+
+        console.log('mainURL: ' + mainURL);
+        
     } else {
         type = 'new';
     }
-
-    console.log(type);
-    if (pageNum !== undefined)
-        console.log(pageNum);
 
     checkEmptyInput(); // sets input classes based on whether an input is empty
 
