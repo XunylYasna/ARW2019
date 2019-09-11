@@ -479,3 +479,9 @@ body.registration {
 }
 
   /* End registration */
+
+  #membersSyncDB.btn.btn-warning{
+    position: absolute;
+    right: 15px;
+    bottom: 0px;
+  }
