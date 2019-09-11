@@ -2,49 +2,50 @@
     {{>navbar}}
 
     <div class="content">
-        <div class="container">
-            <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-            <link href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
+        <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+        <link href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
 
-            <script> 
-                $(document).ready( function () {
-                    $('#LSCSTable').DataTable();
-                });
-            </script>
+        <script> 
+            $(document).ready( function () {
+                $('#LSCSTable').DataTable();
+            });
+        </script>
 
-            <div class="col">
-                <br/>
-                <h1>Members</h1>
-                <br/>
-                <table id="LSCSTable" class="table table-borderless">
-                    <thead>
-                        <th> Full Name </th>
-                        <th> ID Number </th>
-                        <th> Terms Left </th>
-                        <th> Course </th>
-                        <th> Contact Number </th>
-                        <th> Email </th>
-                        <th> Facebook Name </th>
-                        <th> Junior Officer </th>
-                        <th> Membership </th>
-                    </thead>
+        <br/>
+        <h1>Members</h1>
+        <br/>
 
-                    <tbody>
-                        <tr>
-                            <td> Lynux Ansay </td>
-                            <td> 11912632 </td>
-                            <td> 1 </td>
-                            <td> BS Landi </td>
-                            <td> 0922LandiMePls </td>
-                            <td> xynulyansna@mamamo.com </td>
-                            <td> Lynux Ansay </td>
-                            <td> Yes </td>
-                            <td> New </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        <table id="LSCSTable">
+            <thead>
+                <th> ID Number </th>
+                <th> Last Name </th>
+                <th> First Name </th>
+                <th> Middle Name </th>
+                <th> Degree Program </th>
+                <th> Contact Number </th>
+                <th> Facebook Name </th>
+                <th> Email </th>
+                <th> Member Type </th>
+                <th> Committee </th>
+                <th> Receipt Number </th>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td> 11912632 </td>
+                    <td> Ansay </td>
+                    <td> Lynux Louie </td>
+                    <td> A </td>
+                    <td> BS Landi </td>
+                    <td> 0922LandiMePls </td>
+                    <td> Lynux Ansay </td>
+                    <td> xynulyansna@mamamo.com </td>
+                    <td> Officer </td>
+                    <td> VP Research and Development </td>
+                    <td> 05231 </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
         
