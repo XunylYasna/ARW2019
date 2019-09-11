@@ -243,6 +243,11 @@ function resetForm () {
     }
 
     checkEmptyInput();
+    $('.validate-form .input').each(function() {
+        $(this).focus(function(){
+           hideValidate(this);
+        });
+    });
 }
 
 function setSubmitEvent () {
@@ -298,7 +303,6 @@ function setSubmitEvent () {
                     console.log("SUCCESS BOIS");
                     console.log(result);
                     
-                    /* Insert url conditions */                    
                     if (rType === 'Honorary' || rType === 'OldMemberSolo' || rType === 'NewMemberSolo' || pageNum === 4) {
                         /* Insert thank you screen */
                         nextScreenAnimation($('#receipt_fs'), $('#done_fs'));
@@ -349,41 +353,50 @@ function setOfficerRadioEvent () {
     };
 }
 
+function checkRType () {
+    switch(rType) {
+        case 'OldMemberSolo': return 'Payment: P230';
+        case 'NewMemberSolo': return 'Payment: P250';
+        case 'Honorary': return 'Payment: P50';
+        case 'OldMemberGroup': 
+            if (isNaN(pageNum)) {
+                pageNum = 1;
+                history.replaceState(mainURL = currentURL, 
+                    document.getElementsByTagName("title")[0].innerHTML, 
+                    currentURL + "/" + pageNum);
+            } else {
+                history.replaceState(pageNum = pageNum, 
+                    document.getElementsByTagName("title")[0].innerHTML, 
+                    currentURL + "/" + pageNum);
+            }
+            return 'Payment: P200';
+        case 'NewMemberGroup': 
+            if (isNaN(pageNum)) {
+                pageNum = 1;
+                history.replaceState(mainURL = currentURL, 
+                    document.getElementsByTagName("title")[0].innerHTML, 
+                    currentURL + "/" + pageNum);
+            } else {
+                history.replaceState(pageNum = pageNum, 
+                    document.getElementsByTagName("title")[0].innerHTML, 
+                    currentURL + "/" + pageNum);
+            }
+            return 'Payment: P230';
+        default: return 'Invalid transaction';
+    }
+}
+
 $(document).ready(function () {
     currentURL = window.location.href;
     currentPathname = window.location.pathname;
+    let total = document.getElementById('total');
+    
     console.log('rType = ' + rType);
     console.log('LOCATION');
     console.log(currentURL);
     console.log(currentPathname);
-    let str = currentPathname.split('register/').pop();
 
-    if (rType === 'OldMemberSolo') {
-        type = 'old';
-    } else if (rType === 'NewMemberSolo') {
-        type = 'new';
-    } else if (rType === 'Honorary') {
-        type = 'honorary';
-    } else if (rType === 'OldMemberGroup'){
-        let strArr = str.split('/');
-        pageNum = parseInt(strArr.pop(), 10);
-
-        if (isNaN(pageNum)) {
-            pageNum = 1;
-            history.replaceState(mainURL = currentURL, 
-                document.getElementsByTagName("title")[0].innerHTML, 
-                currentURL + "/" + pageNum);
-        } else {
-            history.replaceState(pageNum = pageNum, 
-                document.getElementsByTagName("title")[0].innerHTML, 
-                currentURL + "/" + pageNum);
-        }
-
-        console.log('mainURL: ' + mainURL);
-        
-    } else {
-        type = 'new';
-    }
+    total.innerHTML = checkRType();
 
     checkEmptyInput(); // sets input classes based on whether an input is empty
 
