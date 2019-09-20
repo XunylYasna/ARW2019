@@ -1,51 +1,56 @@
 const express = require('express');
 const router = express.Router();
-const bodyparser = require("body-parser");
-const urlencoder = bodyparser.urlencoded({
-    extended : true
-});
-router.use(urlencoder);
-const Member = require("../models/Member");
 
+// Database
+const PouchDB = require('pouchdb')
+var db = new PouchDB('members'); //local
+// var db = new PouchDB('http://localhost:5984/members'); // web
 
-router.get(['/honorary', '/old', '/new','/old/1', '/old/2', '/old/3', '/old/4', '/old/5', 
-    '/new/1', '/new/2', '/new/3', '/new/4', '/new/5'], (req,res) =>
-    res.render('register')
-);
-
-
-router.get('/', (req,res) =>{
-    // console.log(req.query.rType)
-    
+router.get('/', (req,res) =>
     res.render('register',{
         rType: req.query.rType
     })
-})
+)
 
-router.post('/process', urlencoder, (req, res) => {
-    console.log('/process');
-    let member = {
-        idNum: req.body.id_number, 
-        firstName: req.body.first_name, 
-        middleName: req.body.middle_name, 
-        lastName: req.body.last_name, 
-        email: req.body.dlsu_mail, 
-        course: req.body.course, 
-        contactNum: req.body.contact_number, 
-        fbName: req.body.facebook_name, 
-        memberType: req.body.member_type, 
-        receiptNum: req.body.receipt_number 
-    }
+router.post('/submit', (req, res) => {
+    let idNum = req.body.id_number;
+    let firstName = req.body.first_name;
+    let middleName = req.body.middle_name;
+    let lastName = req.body.last_name;
+    let course = req.body.course;
 
-    Member.create(member).then((member)=>{
-        console.log("successful member logging " + member)
-        console.log('Name: ' + member.firstName);
-        res.send(member);
-    }, (error)=>{
-        console.log('ERROR ERROR');
-        console.log(error);
+    let contactNum = req.body.contact_number;
+    let facebookName = req.body.facebook_name;
+    let email = req.body.dlsu_mail;
+    
+    let isOfficer = req.body.is_officer;
+    let officerPos = req.body.officer_position;
+
+    let recieptNum = req.body.reciept_number;
+    
+    let regType = req.body.registration_type;
+
+    var doc = {
+        "_id": idNum,
+        "firstName": firstName,
+        "middleName":middleName,
+        "lastName":lastName,
+        "course":course,
+        "contactNum":contactNum,
+        "facebookName":facebookName,
+        "email":email,
+        "isOfficer":isOfficer,
+        "officerPos":officerPos,
+        "recieptNum":recieptNum,
+        "regType":regType,
+        "date": Date.now()
+      };
+      db.put(doc);
+
+      res.render('welcome',{
+        message: regType + " member added sucessfully"
     })
-});
+})
 
 
 module.exports = router;

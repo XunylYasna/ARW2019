@@ -26,46 +26,6 @@ app.engine( 'hbs', exphbs( {
 app.set('view engine', '.hbs');
 
 
-// Mongoose Config and Connection
-
-const mongoose = require('mongoose');
-const db = require('./config/keys').MongoURI;
-mongoose.connect(db, { useNewUrlParser : true })
-    .then(() => console.log("MongoDB Connected..."))
-    .catch(err => console.log(err));
-
-
-// Express Session Middleware
-const session = require('express-session');
-app.use(session({
-  secret: 'killroy',
-  resave: true,
-  saveUninitialized: true,
-//   cookie: { secure: true }
-}))
-
-
-// Passport middleware
-
-const passport = require('passport');
-require('./config/passport')(passport);
-app.use(passport.initialize());
-app.use(passport.session());
-
-// Connect Flash
-
-const flash = require('connect-flash');
-app.use(flash())
-
-
-//Global Var
-app.use((req,res,next) =>{
-    res.locals.success_msg = req.flash('success_msg');
-    res.locals.error_msg = req.flash('error_msg');
-    res.locals.error = req.flash('error_msg');
-    next();
-})
-
 
 
 // Routes
@@ -81,11 +41,7 @@ app.get('/', (req,res) =>{
   res.render('welcome')
 })
 
-// For Password Authenitcation
-const bcrypt = require('bcryptjs')
-app.get('/login', (req,res) => {
-  res.render('login')
-})
+
 
 
 app.listen(PORT, console.log(`Server started on port ${PORT}`))

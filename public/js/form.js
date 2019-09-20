@@ -1,7 +1,7 @@
 /* Script for register.hbs */
 /* Global Variables */
 let currentURL, mainURL, currentPathname, pageNum;
-alert(rType) // Type of Registration
+// alert(rType) // Type of Registration
 
 /* Checks if input fields are empty */
 function checkEmptyInput () {
@@ -339,17 +339,24 @@ function setOfficerRadioEvent () {
     let officer = document.getElementById('officer-radio');
     let member =  document.getElementById('member-radio');
 
+    let jof = document.getElementById('jo-form');
+
     let presetRadio = "false";
     $("[name=is_officer]").filter("[value='"+presetRadio+"']").prop("checked", true);
 
     officer.onclick = () => {
-        if (cntr.style.display = 'none')
+        if (cntr.style.display = 'none'){
             cntr.style.display = 'block';
+            jof.style.display = 'none;'
+        }
+            
     };
 
     member.onclick = () => {
-        if (cntr.style.display = 'block')
+        if (cntr.style.display = 'block'){
             cntr.style.display = 'none';
+            jof.style.display = 'block'
+        }
     };
 }
 
