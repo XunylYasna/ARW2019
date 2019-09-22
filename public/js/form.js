@@ -347,7 +347,7 @@ function setOfficerRadioEvent () {
     officer.onclick = () => {
         if (cntr.style.display = 'none'){
             cntr.style.display = 'block';
-            jof.style.display = 'none;'
+            jof.style.display = 'none';
         }
             
     };
@@ -355,7 +355,7 @@ function setOfficerRadioEvent () {
     member.onclick = () => {
         if (cntr.style.display = 'block'){
             cntr.style.display = 'none';
-            jof.style.display = 'block'
+            jof.style.display = 'block';
         }
     };
 }
@@ -418,7 +418,7 @@ $(document).ready(function () {
     setNextEvent();
     setPrevEvent();
     setSubmitEvent();
-    setInputLeaveEvent();
+    // setInputLeaveEvent();
     setOfficerRadioEvent();
 
 });

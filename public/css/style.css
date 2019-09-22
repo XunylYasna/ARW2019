@@ -343,16 +343,9 @@ a.action-button:hover {
   left: 5px;
 }
 
-.alert-validate:hover:before {
+.alert-validate::before {
   visibility: visible;
   opacity: 1;
-}
-
-@media (max-width: 992px) {
-  .alert-validate::before {
-    visibility: visible;
-    opacity: 1;
-  }
 }
 
 .m-b-60 {
@@ -361,6 +354,7 @@ a.action-button:hover {
 
 .inline {
   display: inline-flex;
+  width: 100%;
 }
 
 .inline div {
@@ -486,6 +480,22 @@ a.action-button:hover {
 
 #register fieldset:not(:first-of-type) {
   display: none;
+}
+
+.validate-input select {
+  height: 42px;
+  margin-top: 8px;
+}
+
+.for-label {
+  top: -17px;
+  position: absolute;
+  font-family: "Lato";
+  font-size: 15px;
+  color: #999999; 
+  line-height: 1.2;
+  display: block;
+  width: 100%;
 }
 
   /* End registration */
