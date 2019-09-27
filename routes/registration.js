@@ -2,9 +2,9 @@ const express = require('express');
 const router = express.Router();
 
 // Database
-const PouchDB = require('pouchdb')
-var db = new PouchDB('members'); //local
-// var db = new PouchDB('http://localhost:5984/members'); // web
+const PouchDB = require('pouchdb');
+// var db = new PouchDB('members'); //local
+var db = new PouchDB('http://localhost:5984/members'); // web
 
 router.get('/', (req,res) =>
     res.render('register',{
@@ -13,6 +13,8 @@ router.get('/', (req,res) =>
 )
 
 router.post('/submit', (req, res) => {
+    console.log('POST /SUBMIT');
+
     let idNum = req.body.id_number;
     let firstName = req.body.first_name;
     let middleName = req.body.middle_name;
@@ -24,13 +26,16 @@ router.post('/submit', (req, res) => {
     let email = req.body.dlsu_mail;
     
     let isOfficer = req.body.is_officer;
-    let officerPos = req.body.officer_position;
+    let officerPos = req.body.member_type;
 
-    let recieptNum = req.body.reciept_number;
+    let receiptNum = req.body.receipt_number;
     
     let regType = req.body.registration_type;
+    let joProgram = req.body.jo_program;
+    let college = req.body.college;
+    let termsLeft = req.body.terms_left
 
-    var doc = {
+    let doc = {
         "_id": idNum,
         "firstName": firstName,
         "middleName":middleName,
@@ -40,16 +45,28 @@ router.post('/submit', (req, res) => {
         "facebookName":facebookName,
         "email":email,
         "isOfficer":isOfficer,
+        "joProgram":joProgram,
         "officerPos":officerPos,
-        "recieptNum":recieptNum,
-        "regType":regType,
+        "recieptNum":receiptNum,
+        "registration_type":regType,
+        "college": college,
+        "termsLeft": termsLeft,
         "date": Date.now()
-      };
-      db.put(doc);
+    };
 
-      res.render('welcome',{
-        message: regType + " member added sucessfully"
-    })
+    console.log(doc);
+    
+    db.put(doc, function callback(err, result) {
+        if (!err) {
+            res.render('welcome',{
+                message: regType + " member added sucessfully"
+            })
+        } else {
+            console.log("ERROR");
+            console.log(err);
+        }
+    });
+        
 })
 
 

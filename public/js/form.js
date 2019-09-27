@@ -1,6 +1,6 @@
 /* Script for register.hbs */
 /* Global Variables */
-let currentURL, mainURL, currentPathname, pageNum;
+let currentURL, mainURL, currentPathname, pageNum, isOfficer;
 // alert(rType) // Type of Registration
 
 /* Checks if input fields are empty */
@@ -219,6 +219,8 @@ function resetForm () {
     let contact_number = document.getElementsByName('contact_number')[0];
     let facebook_name = document.getElementsByName('facebook_name')[0];
     let receipt_number = document.getElementsByName('receipt_number')[0];
+    let terms_left = document.getElementsByName('terms_left')[0];
+    let course = document.getElementsByName('course')[0];
 
     id_number.value = '';
     first_name.value = '';
@@ -228,19 +230,25 @@ function resetForm () {
     contact_number.value = '';
     facebook_name.value = '';
     receipt_number.value = '';
+    terms_left.value = '';
+    course.value = '';
 
     let presetRadio = "false";
     $("[name=is_officer]").filter("[value='"+presetRadio+"']").prop("checked", true);
+    $("[name=inlineRadioOptions]").filter("[value='"+presetRadio+"']").prop("checked", true);
 
     let officerOptions = document.querySelectorAll('#officer-pos option');
     for (let i = 0, l = officerOptions.length; i < l; i++) {
         officerOptions[i].selected = officerOptions[i].defaultSelected;
     }
 
-    let courseOptions = document.querySelectorAll('#course option');
-    for (let i = 0, l = courseOptions.length; i < l; i++) {
-        courseOptions[i].selected = courseOptions[i].defaultSelected;
-    }
+    cntr.style.display = 'none';
+    jof.style.display = 'block';
+
+    // let courseOptions = document.querySelectorAll('#course option');
+    // for (let i = 0, l = courseOptions.length; i < l; i++) {
+    //     courseOptions[i].selected = courseOptions[i].defaultSelected;
+    // }
 
     checkEmptyInput();
     $('.validate-form .input').each(function() {
@@ -260,19 +268,32 @@ function setSubmitEvent () {
     let facebook_name = document.getElementsByName('facebook_name')[0];
     let receipt_number = document.getElementsByName('receipt_number')[0];
 
-    let course = document.getElementById('course');
+    let terms_left = document.getElementsByName('terms_left')[0];
+    let college = document.getElementById('inlineFormCustomSelect').value;
+
+    let course = document.getElementsByName('course')[0];
     let member_type = document.getElementById('member_type');
     
     $('.validate-form').submit(function (e) {
         e.preventDefault(); // prevent actual submitting        
         let children = $('#receipt_fs').find('input,textarea'); 
         let valid = validFieldSet(children);
+        let yes = document.getElementById('inlineRadio1');
+        let joProgram;
 
         // set hidden submit value
         if(document.getElementById('officer-radio').checked) {
             member_type.value = document.getElementById('officer-pos').value;
+            isOfficer = true;
         } else if(document.getElementById('member-radio').checked) {
-            member_type.value = 'Member';
+            member_type.value = "";
+            isOfficer = false;
+        }
+
+        if (yes.checked) {
+            joProgram = true;
+        } else {
+            joProgram = false;
         }
 
         if (valid) {
@@ -280,30 +301,40 @@ function setSubmitEvent () {
             console.log();
             console.log();
             console.log('AJAX');
-            let url = currentURL.split(currentPathname)[0] + '/register/process';
+            let url = currentURL.split(currentPathname)[0] + '/register/submit';
             console.log(url);
+
+            let data = {
+                id_number: id_number.value,
+                first_name: first_name.value,
+                middle_name: middle_name.value,
+                last_name: last_name.value,
+                dlsu_mail: dlsu_mail.value,
+                contact_number: contact_number.value,
+                facebook_name: facebook_name.value,
+                receipt_number: receipt_number.value,
+                course: course.value,
+                member_type: member_type.value,
+                is_officer: isOfficer,
+                registration_type: rType,
+                jo_program: joProgram,
+                college: college,
+                terms_left: terms_left.value
+            }
+            console.log("DATA");
+            console.log(data);
 
             /* insert ajax submit code here */
             $.ajax({
                 url: url,
                 method: "POST",
-                data: {
-                    id_number: id_number.value,
-                    first_name: first_name.value,
-                    middle_name: middle_name.value,
-                    last_name: last_name.value,
-                    dlsu_mail: dlsu_mail.value,
-                    contact_number: contact_number.value,
-                    facebook_name: facebook_name.value,
-                    receipt_number: receipt_number.value,
-                    course: course.value,
-                    member_type: member_type.value
-                },
+                data: data, 
+                timeout: 5000,
                 success: function(result){
                     console.log("SUCCESS BOIS");
                     console.log(result);
                     
-                    if (rType === 'Honorary' || rType === 'OldMemberSolo' || rType === 'NewMemberSolo' || pageNum === 4) {
+                    if (rType === 'Honorary' || rType === 'OldMemberSolo' || rType === 'NewMemberSolo' || pageNum === 5) {
                         /* Insert thank you screen */
                         nextScreenAnimation($('#receipt_fs'), $('#done_fs'));
                     } else {
@@ -312,6 +343,10 @@ function setSubmitEvent () {
                         animateReset();
                         resetForm();
                     }
+                },
+                error: function(error) {
+                    console.log("FAIL");
+                    console.log(error);
                 }
             });
         }
@@ -339,17 +374,20 @@ function setOfficerRadioEvent () {
     let officer = document.getElementById('officer-radio');
     let member =  document.getElementById('member-radio');
 
+    isOfficer = false;
     let jof = document.getElementById('jo-form');
 
     let presetRadio = "false";
+    $("[name=inlineRadioOptions]").filter("[value='"+presetRadio+"']").prop("checked", true);
     $("[name=is_officer]").filter("[value='"+presetRadio+"']").prop("checked", true);
+
 
     officer.onclick = () => {
         if (cntr.style.display = 'none'){
             cntr.style.display = 'block';
             jof.style.display = 'none';
         }
-            
+        isOfficer = true;
     };
 
     member.onclick = () => {
@@ -357,10 +395,12 @@ function setOfficerRadioEvent () {
             cntr.style.display = 'none';
             jof.style.display = 'block';
         }
+        isOfficer = false;
     };
 }
 
 function checkRType () {
+    console.log("RTYPE IS " + rType)
     switch(rType) {
         case 'OldMemberSolo': return 'Payment: P230';
         case 'NewMemberSolo': return 'Payment: P250';
@@ -370,11 +410,11 @@ function checkRType () {
                 pageNum = 1;
                 history.replaceState(mainURL = currentURL, 
                     document.getElementsByTagName("title")[0].innerHTML, 
-                    currentURL + "/" + pageNum);
+                    mainURL + "/" + pageNum);
             } else {
                 history.replaceState(pageNum = pageNum, 
                     document.getElementsByTagName("title")[0].innerHTML, 
-                    currentURL + "/" + pageNum);
+                    mainURL + "/" + pageNum);
             }
             return 'Payment: P200';
         case 'NewMemberGroup': 
@@ -382,11 +422,11 @@ function checkRType () {
                 pageNum = 1;
                 history.replaceState(mainURL = currentURL, 
                     document.getElementsByTagName("title")[0].innerHTML, 
-                    currentURL + "/" + pageNum);
+                    mainURL + "/" + pageNum);
             } else {
                 history.replaceState(pageNum = pageNum, 
                     document.getElementsByTagName("title")[0].innerHTML, 
-                    currentURL + "/" + pageNum);
+                    mainURL + "/" + pageNum);
             }
             return 'Payment: P230';
         default: return 'Invalid transaction';
@@ -397,8 +437,18 @@ $(document).ready(function () {
     currentURL = window.location.href;
     currentPathname = window.location.pathname;
     let total = document.getElementById('total');
+
     
+    rType = rType.split('/');
     console.log('rType = ' + rType);
+    console.log("wowie = "+mainURL);
+    if (mainURL === undefined) {
+        mainURL = "/register?rType=" + rType[0];
+        pageNum = rType[1];
+        rType = rType[0];
+        console.log("mainURL = " + mainURL);
+    }
+
     console.log('LOCATION');
     console.log(currentURL);
     console.log(currentPathname);
