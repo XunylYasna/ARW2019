@@ -19,6 +19,8 @@ var firebase = admin.initializeApp({
     databaseURL: "https://lscs-arw.firebaseio.com"
 });
 
+var ref = firebase.database().ref('/members');
+
 router.get('/accounting', (req,res) =>
     res.render('accounting')
 )
@@ -28,28 +30,32 @@ router.get('/members', (req,res) =>
 )
 
 router.get('/sync', (req,res) => {
-    // if ()
+    var doc
     db.allDocs({
         include_docs: true
     }).then(function(result) {
-        db.allDocs({
-            include_docs: true
-        }).then(function(result) {
-            result.rows.forEach(function (row) {
-                var doc = row.doc;
-                delete doc._rev;
-                firebase.database().ref('/members/' + doc._id).set(doc)
+        // COUCH DB to FIREBASE
+        result.rows.forEach(function (row) {
+            doc = row.doc;
+            delete doc._rev;
+            ref.child(doc._id).set(doc).catch(function (err) {
+                console.log(err);
             });
-            console.log("Syncing Done!");
-        }).catch(function (err) {
-            console.log(err);
-        });
+        })
         
-        console.log("Syncing Done!");
-        res.redirect('/dashboard/members');
+        // FIREBASE to COUCH DB
+        return ref.once('value');
+    }).then(function (snapshot) {
+        snapshot.forEach(function (doc) {
+            db.put(doc.val()).catch(function (err) {
+                console.log(err);
+            });
+        })
     }).catch(function (err) {
         console.log(err);
     });
+    
+    res.redirect('/dashboard/members');
 })
 
 
