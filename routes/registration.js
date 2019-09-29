@@ -12,6 +12,18 @@ router.get('/', (req,res) =>
     })
 )
 
+function formatDate(date) {
+   
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+    var year = date.getFullYear();
+    var hour = date.getHours();
+    var minutes = date.getMinutes();
+    var seconds = date.getSeconds();
+  
+    return month +'-'+day+'-'+year+" "+hour+":"+minutes+":"+seconds;
+  }
+
 router.post('/submit', (req, res) => {
     console.log('POST /SUBMIT');
 
@@ -51,7 +63,7 @@ router.post('/submit', (req, res) => {
         "registration_type":regType,
         "college": college,
         "termsLeft": termsLeft,
-        "date": Date.now()
+        "date": formatDate(new Date)
     };
 
     console.log(doc);

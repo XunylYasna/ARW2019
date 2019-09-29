@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 
 // database
-var PouchDB = require('pouchdb');
+const PouchDB = require('pouchdb');
+PouchDB.plugin(require('pouchdb-find'));
 const db = new PouchDB('http://localhost:5984/members');
 let admin = require("firebase-admin");
 
@@ -26,13 +27,151 @@ let firebase = admin.initializeApp({
 });
 let ref = firebase.database().ref('/members');
 
-router.get('/accounting', (req,res) =>
-    res.render('accounting')
-)
 
-router.get('/members', (req,res) =>
-    res.render('members')
-)
+
+function countType(doc) {
+    var HQ = 0, NMSQ = 0, OMSQ = 0, NMGQ = 0, OMGQ = 0;
+    if (doc.type == 'Honorary') {
+        HQ++;
+    }else if(doc.type == 'OldMemberSolo'){
+        OMSQ++
+    }else if(doc.type == 'NewMemberSolo'){
+        NMSQ++
+    }else if(doc.type == 'OldMemberGroup'){
+        OMGQ++
+    }else if(doc.type == 'NewMemberGroup'){
+        NMGA++
+    }
+    emit([HQ,OMSQ,NMSQ,OMGQ,NMGA]);
+  }
+
+
+router.get('/accounting', (req,res) =>{
+
+
+    var HA = 50, HQ = 0, NMSQ = 0, NMSA = 250, OMSA = 230, OMSQ = 0, NMGQ = 0, NMGA = 230, OMGQ = 0, OMGA = 200;
+    var TQ, TA;
+
+    db.allDocs({
+        include_docs: true
+      }).then(function (entries) {
+        
+        for (var i = 0, len = entries.rows.length; i < len; i++){
+            var row = entries.rows[i].doc
+            // console.log(row.registration_type)
+            if (row.registration_type == 'Honorary') {
+                HQ++;
+            }else if(row.registration_type == 'OldMemberSolo'){
+                OMSQ++
+            }else if(row.registration_type == 'NewMemberSolo'){
+                NMSQ++
+            }else if(row.registration_type == 'OldMemberGroup'){
+                OMGQ++
+            }else if(row.registration_type == 'NewMemberGroup'){
+                NMGQ++
+            }
+        } 
+        HA *= HQ
+        NMSA *= NMSQ
+        OMSA *= OMSQ
+        OMGA *= OMGQ
+        NMGA *= NMGQ
+        TA = HA + NMSA + OMSA + OMGA + NMGA
+        TQ = HQ + NMSQ + OMSQ + OMGQ + NMGQ
+        res.render('accounting',{
+            HA, HQ, NMSQ, NMSA, OMSA, OMSQ, NMGQ, NMGA, OMGQ, OMGA, TQ, TA
+        })
+    }).catch((err) => {
+        console.log(err)
+        res.render('accounting')
+    });
+})
+
+function formatDate(date) {
+   
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+    var year = date.getFullYear();
+  
+    return month +'-'+day+'-'+year;
+  }
+
+// Today
+router.get('/accounting/today', (req,res) =>{
+
+    var HA = 50, HQ = 0, NMSQ = 0, NMSA = 250, OMSA = 230, OMSQ = 0, NMGQ = 0, NMGA = 230, OMGQ = 0, OMGA = 200;
+    var TQ, TA;
+    var today = formatDate(new Date);
+// '/^'+today+'.*'
+    db.find({
+        selector: {date: {$regex: ('^'+today)}},
+        fields: ['_id','registration_type'],
+        }).then(function (entries) {
+            // console.log(entries)
+            for (var i = 0, len = entries.docs.length; i < len; i++){
+                var row = entries.docs[i]
+                if (row.registration_type == 'Honorary') {
+                    HQ++;
+                }else if(row.registration_type == 'OldMemberSolo'){
+                    OMSQ++
+                }else if(row.registration_type == 'NewMemberSolo'){
+                    NMSQ++
+                }else if(row.registration_type == 'OldMemberGroup'){
+                    OMGQ++
+                }else if(row.registration_type == 'NewMemberGroup'){
+                    NMGQ++
+                }
+            } 
+            HA *= HQ
+            NMSA *= NMSQ
+            OMSA *= OMSQ
+            OMGA *= OMGQ
+            NMGA *= NMGQ
+            TA = HA + NMSA + OMSA + OMGA + NMGA
+            TQ = HQ + NMSQ + OMSQ + OMGQ + NMGQ
+            res.render('accounting',{
+                HA, HQ, NMSQ, NMSA, OMSA, OMSQ, NMGQ, NMGA, OMGQ, OMGA, TQ, TA
+            })
+        }).catch(function (err) {
+            console.log(err);
+            res.render('accounting')
+        });
+})
+
+router.get('/members', (req,res) =>{
+    
+
+    db.allDocs({
+        include_docs: true
+      }).then(function (entries) {
+        var dataSet = [];
+        for (var i = 0, len = entries.rows.length; i < len; i++){
+            var row = entries.rows[i].doc
+            var rowData = {
+                ID_Number: row._id,
+                Last_Name: row.firstName,
+                First_Name: row.lastName,
+                Middle_Name: row.middleName,
+                College: row.college,
+                Degree_Program: row.course,        
+                Contact_Number: row.contactNum,       
+                Facebook_Name: row.facebookName,
+                Email: row.email,
+                Is_Officer: row.isOfficer,
+                Is_JO: row.joProgram,
+                Position: row.officerPos,
+                Receipt_Number: row.recieptNum,
+            }
+            dataSet[i] = rowData;
+        } 
+        res.render('members',{
+            dataSet
+        })
+    }).catch((err) => {
+        console.log(err)
+    });
+    
+})
 
 router.get('/sync', (req,res) => {
     ref.once('value').then(function (snapshot) {

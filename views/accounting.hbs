@@ -16,11 +16,12 @@
                             Filter by day
                         </button>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item active" href="#">All</a>
-                            <a class="dropdown-item" href="#">September 30</a>
+                            <a class="dropdown-item active" href="http://localhost:3000/dashboard/accounting/">All</a>
+                            <a class="dropdown-item" href="http://localhost:3000/dashboard/accounting/today">Today</a>
+                            {{!-- <a class="dropdown-item" href="#">September 30</a>
                             <a class="dropdown-item" href="#">October 1</a>
                             <a class="dropdown-item" href="#">October 2</a>
-                            <a class="dropdown-item" href="#">October 3</a>
+                            <a class="dropdown-item" href="#">October 3</a> --}}
                             </div>
                         </div>
 
@@ -43,33 +44,33 @@
                 <tbody>
                     <tr>
                     <td>Honorary</td>
-                    <td>{{HQ}} 0 </td>
-                    <td>{{HA}} 0 </td>
+                    <td>{{HQ}}</td>
+                    <td>{{HA}}</td>
                     </tr>
                     <tr>
                     <td>New Member Solo</td>
-                    <td>{{NMSQ}} 0 </td>
-                    <td>{{NMSA}} 0 </td>
+                    <td>{{NMSQ}}</td>
+                    <td>{{NMSA}}</td>
                     </tr>
                     <tr>
                     <td>New Member Group</td>
-                    <td>{{NMGQ}} 0 </td>
-                    <td>{{NMGA}} 0 </td>
+                    <td>{{NMGQ}}</td>
+                    <td>{{NMGA}}</td>
                     </tr>
                     <tr>
                     <td>Old Member Solo</td>
-                    <td>{{NMGQ}} 0 </td>
-                    <td>{{NMGA}} 0 </td>
+                    <td>{{OMSQ}}</td>
+                    <td>{{OMSA}}</td>
                     </tr>
                     <tr>
                     <td>Old Member Group</td>
-                    <td>{{OMGQ}} 0 </td>
-                    <td>{{OMGA}} 0 </td>
+                    <td>{{OMGQ}}</td>
+                    <td>{{OMGA}}</td>
                     </tr>
                     <tr class="table-active">
                     <th scope="row">Total</td>
-                    <td>{{TQ}} 0 </td>
-                    <td>{{TA}} 0 </td>
+                    <td>{{TQ}}</td>
+                    <td>{{TA}}</td>
                     </tr>
                 </tbody>
             </table>
