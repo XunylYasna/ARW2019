@@ -14,7 +14,6 @@ router.get('/', (req,res) =>
 
 router.post('/submit', (req, res) => {
     console.log('POST /SUBMIT');
-    console.log(college)
 
     let idNum = req.body.id_number;
     let firstName = req.body.first_name;

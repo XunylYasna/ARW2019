@@ -272,8 +272,7 @@ function setSubmitEvent () {
     let receipt_number = document.getElementsByName('receipt_number')[0];
 
     let terms_left = document.getElementsByName('terms_left')[0];
-    let e = document.getElementById('inlineFormCustomSelect');
-    let college = e.options[e.selectedIndex].value
+    let collegeSelect = document.getElementById('inlineFormCustomSelect');
 
     let course = document.getElementsByName('course')[0];
     let member_type = document.getElementById('member_type');
@@ -322,7 +321,7 @@ function setSubmitEvent () {
                 is_officer: isOfficer,
                 registration_type: rType,
                 jo_program: joProgram,
-                college: college,
+                college: collegeSelect.value,
                 terms_left: terms_left.value
             }
             console.log("DATA");
