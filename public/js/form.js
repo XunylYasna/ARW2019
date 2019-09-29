@@ -269,7 +269,8 @@ function setSubmitEvent () {
     let receipt_number = document.getElementsByName('receipt_number')[0];
 
     let terms_left = document.getElementsByName('terms_left')[0];
-    let college = document.getElementById('inlineFormCustomSelect').value;
+    let e = document.getElementById('inlineFormCustomSelect');
+    let college = e.options[e.selectedIndex].value
 
     let course = document.getElementsByName('course')[0];
     let member_type = document.getElementById('member_type');

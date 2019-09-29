@@ -39,33 +39,18 @@
                     </div>
                 </div>
 
-                {{!-- <div class="m-b">
-                    <label for="course">Degree Program</label>
-                    <select id="course" class="form-control" name="course" data-live-search="true">
-                        <option value="BSCS">BSCS</option>
-                        <option value="BSIT">BSIT</option>
-                        <option value="BSCS-ST">BSCS-ST</option>
-                        <option value="BSCS-NE">BSCS-NE</option>
-                        <option value="BSCS-IST">BSCS-IST</option>
-                        <option value="BSCS-CSE">BSCS-CSE</option>
-                        <option value="BS-INSYS">BS-INSYS</option>
-                        <option value="IET-GD2">IET-GD2</option>
-                        <option value="IET-AD2">IET-AD2</option>
-                        <option value="IET-GDS">IET-GDS</option>
-                        <option value="IET-ADS">IET-ADS</option>
-                        <option value="CSS">CSS</option>
-                        <option value="BSMSCS">BSMSCS</option>
-                    </select>
-                </div> --}}
-
                 <div class="inline">
                     <div class="validate-input my-1 mr-6" data-validate="Required">
                         <label for="inlineFormCustomSelect" class="for-label">College</label>
-                        <select class="custom-select " id="inlineFormCustomSelect">
-                            <option selected>College...</option>
-                            <option value="1">CCS</option>
-                            <option value="2">COB</option>
-                            <option value="3">Three</option>
+                        <select name="college" class="custom-select " id="inlineFormCustomSelect">
+                            <option value="">College...</option>
+                            <option value="CCS">CCS</option>
+                            <option value="CED">CED</option>
+                            <option value="CLA">CLA</option>
+                            <option value="COB">COB</option>
+                            <option value="COE">COE</option>
+                            <option value="COS">COS</option>
+                            <option value="SOE">SOE</option>
                         </select>
                     </div>
 
@@ -120,16 +105,15 @@
                     <label for="officer-pos">Position</label>
                     <select id="officer-pos" class="form-control" name="officer_position" data-live-search="true">
                         <optgroup label="Internals">
-                            <option value="VP Research and Development" selected>VP Research and Development</option>
-                            <option value="AVP Research and Development">AVP Research and Development</option>
-                            <option value="VP Human Resource Development">VP Human Resource Development</option>
-                            <option value="AVP Human Resource Development">AVP Human Resource Development</option>
                             <option value="VP Academics">VP Academics</option>
                             <option value="AVP Academics">AVP Academics</option>
+                            <option value="VP Human Resource Development">VP Human Resource Development</option>
+                            <option value="AVP Human Resource Development">AVP Human Resource Development</option>
                             <option value="VP Training and Development">VP Training and Development</option>
                             <option value="AVP Training and Development">AVP Training and Development</option>
+                            <option value="VP Research and Development">VP Research and Development</option>
+                            <option value="AVP Research and Development">AVP Research and Development</option>
                         </optgroup>
-
                         <optgroup label="Externals">
                             <option value="VP Corporate Relations">VP Corporate Relations</option>
                             <option value="AVP Corporate Relations">AVP Corporate Relations</option>
@@ -160,11 +144,11 @@
                 <div id = "jo-form" class="m-b">
                     <label for="officer-pos">Are you interested to join the Junior Officer Program?</label> <br>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="true">
+                        <input class="form-check-input" type="radio" name="jo_program" id="inlineRadio1" value="true">
                         <label class="form-check-label" for="inlineRadio1">Yes</label>
                         </div>
                         <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="false">
+                        <input class="form-check-input" type="radio" name="jo_program" id="inlineRadio2" value="false">
                         <label class="form-check-label" for="inlineRadio2">No</label>
                     </div>
                     
