@@ -54,7 +54,7 @@ function validate (input) {
             if (isNaN(value) || value.length != 8) return false;
             break;
         case 'contact_number':
-            if (isNaN(value) || value.length > 11 || value.length < 10) return false;
+            if (isNaN(value) || value.length != 11 || !value.startsWith("09")) return false;
             break;
         case 'facebook_name':
             if (value.match(/^([0-9a-zA-Z.\-][ ]?)+$/) === null) return false;
@@ -67,6 +67,9 @@ function validate (input) {
             break;
         case 'dlsu_mail': 
             if (value.match(/^([0-9a-zA-Z._\-][ ]?)+@dlsu.edu.ph$/) === null) return false;
+            break;
+        case 'terms_left':
+            if (isNaN(value)) return false;
             break;
     }
     return true;

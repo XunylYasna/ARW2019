@@ -1,19 +1,13 @@
 const express = require('express');
 const router = express.Router();
 
-// // Database
-// const PouchDB = require('pouchdb')
-// // var db = new PouchDB('members'); //local
-// var db = new PouchDB('http://localhost:5984/members'); // web
-// db.info()
-
 // database
 const PouchDB = require('pouchdb');
 const db = new PouchDB('http://localhost:5984/members');
-var admin = require("firebase-admin");
+let admin = require("firebase-admin");
 
 // var serviceAccount = require("../lscs-arw-firebase-adminsdk-vdtdd-2c1a8fc18a.json");
-var serviceAccount = {
+let serviceAccount = {
     "type": "service_account",
     "project_id": "lscs-arw",
     "private_key_id": "2c1a8fc18a3bd63a90789e29319d788c17ddd0c6",
@@ -26,12 +20,11 @@ var serviceAccount = {
     "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-vdtdd%40lscs-arw.iam.gserviceaccount.com"    
 };
 
-var firebase = admin.initializeApp({
+let firebase = admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
     databaseURL: "https://lscs-arw.firebaseio.com"
 });
-
-var ref = firebase.database().ref('/members');
+let ref = firebase.database().ref('/members');
 
 router.get('/accounting', (req,res) =>
     res.render('accounting')
