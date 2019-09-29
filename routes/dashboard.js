@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 // database
-const PouchDB = require('pouchdb');
+var PouchDB = require('pouchdb');
 const db = new PouchDB('http://localhost:5984/members');
 let admin = require("firebase-admin");
 
@@ -38,9 +38,24 @@ router.get('/sync', (req,res) => {
     ref.once('value').then(function (snapshot) {
         // FIREBASE to COUCH DB
         snapshot.forEach(function (doc) {
-            db.put(doc.val()).catch(function (err) {
-                console.log(err);
-            });
+            db.get(doc.val()._id).then(function (remDoc) {
+                return db.remove(remDoc._id, remDoc._rev);
+            }).then(function (res) {
+                let temp = doc.val();
+                delete temp._rev
+                return db.put(temp);
+            }).then(function (res) {
+                console.log("Updated: " + doc.val()._id); 
+            }).catch (function (err) {
+                if (err.name === 'not_found') {
+                    let temp = doc.val();
+                    delete temp._rev;
+                    db.put(temp).then(function (res) {
+                        console.log("Added: " + doc.val()._id);
+                    });
+                } else
+                    console.log(err)
+            })
         });
 
         return db.allDocs({include_docs: true})
