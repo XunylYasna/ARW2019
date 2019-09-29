@@ -42,27 +42,23 @@ router.get('/members', (req,res) =>
 )
 
 router.get('/sync', (req,res) => {
-    var doc
-    db.allDocs({
-        include_docs: true
-    }).then(function(result) {
-        // COUCH DB to FIREBASE
-        result.rows.forEach(function (row) {
-            doc = row.doc;
-            delete doc._rev;
-            ref.child(doc._id).set(doc).catch(function (err) {
-                console.log(err);
-            });
-        })
-        
+    ref.once('value').then(function (snapshot) {
         // FIREBASE to COUCH DB
-        return ref.once('value');
-    }).then(function (snapshot) {
         snapshot.forEach(function (doc) {
             db.put(doc.val()).catch(function (err) {
                 console.log(err);
             });
-        })
+        });
+
+        return db.allDocs({include_docs: true})
+    }).then(function(result) {
+        // COUCH DB to FIREBASE
+        result.rows.forEach(function (row) {
+            ref.child(row.doc._id).set(row.doc).catch(function (err) {
+                console.log(err);
+            });
+        });
+        return ref.once('value');
     }).catch(function (err) {
         console.log(err);
     });
