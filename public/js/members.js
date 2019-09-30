@@ -15,6 +15,8 @@ for(var i = 0; i < dataSet.length;i++){
 $(document).ready(function() {
     $('#LSCSTable').DataTable({
         data: dataArray,
+        scrollY:        '50vh',
+        scrollCollapse: true,
         columns: [ 
             { title : "ID Number" },
             { title : "Last Name" },

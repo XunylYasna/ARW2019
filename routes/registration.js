@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const fs = require('fs');
 
 // Database
 const PouchDB = require('pouchdb');
@@ -67,6 +68,9 @@ router.post('/submit', (req, res) => {
     };
 
     console.log(doc);
+    var stream = fs.createWriteStream("regLog.csv", {flags:'a'});
+    stream.write(JSON.stringify(doc))
+    stream.end();
     
     db.put(doc, function callback(err, result) {
         if (!err) {
